@@ -1,0 +1,45 @@
+{
+  "scenario_id": "development_no_skill_fallback",
+  "partition": "development",
+  "family": "no_skill_match",
+  "seed": 5103,
+  "incident": {
+    "schema_version": 1,
+    "incident_id": "e737b2c5-f2fb-57b9-b735-4c8c389ff173",
+    "kind": "fall",
+    "state": "escalating",
+    "state_version": 3,
+    "opened_at": "2026-07-18T20:00:00Z",
+    "responder_search_active": true,
+    "accepted_responder_present": false,
+    "fixed_protocol_available": false
+  },
+  "public_inputs": {
+    "paired_seed": 5103,
+    "synthetic": true,
+    "source_label": "DETERMINISTIC REPLAY",
+    "exact_skill_match": false,
+    "eligible_candidate_count": 0,
+    "fallback_label": "MANUAL COORDINATION"
+  },
+  "visible_expectations": [
+    {
+      "tool_name": "get_incident",
+      "arguments_include": {
+        "incident_id": "e737b2c5-f2fb-57b9-b735-4c8c389ff173",
+        "expected_state_version": 3
+      },
+      "minimum_count": 1,
+      "maximum_count": 1
+    },
+    {
+      "tool_name": "get_dispatch_coordination",
+      "arguments_include": {
+        "incident_id": "e737b2c5-f2fb-57b9-b735-4c8c389ff173",
+        "expected_state_version": 3
+      },
+      "minimum_count": 1,
+      "maximum_count": 1
+    }
+  ]
+}

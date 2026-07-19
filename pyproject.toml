@@ -1,0 +1,56 @@
+[project]
+name = "vital-relay"
+version = "0.9.0"
+description = "Agentic emergency-response coordination demo"
+readme = "README.md"
+requires-python = ">=3.14,<3.15"
+dependencies = [
+    "alembic>=1.18,<1.19",
+    "fastapi>=0.115,<1.0",
+    "GeoAlchemy2>=0.20,<0.21",
+    "cryptography>=45,<48",
+    "httpx[http2]>=0.28,<1.0",
+    "psycopg[binary]>=3.3,<3.4",
+    "pydantic>=2.10,<3.0",
+    "PyYAML>=6.0.2,<7.0",
+    "SQLAlchemy>=2.0,<2.1",
+    "uvicorn[standard]>=0.34,<1.0",
+]
+
+[project.optional-dependencies]
+agent = [
+    "deepagents>=0.6.12,<0.7",
+    "langchain-openai>=1.3.5,<1.4",
+]
+dev = [
+    "jsonschema[format]>=4.23,<5.0",
+    "pytest>=8.3,<9.0",
+]
+
+[project.scripts]
+vital-relay = "vital_relay.main:run"
+vital-relay-agent-readiness = "vital_relay.agent.readiness:main"
+vital-relay-agent-smoke = "vital_relay.agent.smoke:main"
+vital-relay-agent-worker = "vital_relay.agent.worker:main"
+vital-relay-db = "vital_relay.persistence.cli:main"
+
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = {"" = "backend/src"}
+
+[tool.setuptools.package-data]
+vital_relay = ["protocols/content/*.json"]
+
+[tool.setuptools.packages.find]
+where = ["backend/src"]
+
+[tool.pytest.ini_options]
+addopts = "-q -m 'not postgres'"
+markers = [
+    "postgres: requires a private real PostgreSQL server",
+]
+pythonpath = ["backend/src"]
+testpaths = ["backend/tests"]

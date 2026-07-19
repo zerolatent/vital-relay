@@ -1,0 +1,44 @@
+{
+  "scenario_id": "development_cancellation_after_acceptance",
+  "partition": "development",
+  "family": "cancellation",
+  "seed": 5105,
+  "incident": {
+    "schema_version": 1,
+    "incident_id": "72d28add-c146-50d2-b23e-b59cc8250373",
+    "kind": "fall",
+    "state": "response_active",
+    "state_version": 5,
+    "opened_at": "2026-07-18T20:00:00Z",
+    "responder_search_active": false,
+    "accepted_responder_present": true,
+    "fixed_protocol_available": true
+  },
+  "public_inputs": {
+    "paired_seed": 5105,
+    "synthetic": true,
+    "source_label": "DETERMINISTIC REPLAY",
+    "accepted_responder_present": true,
+    "incident_outcome": "resolved_after_cancellation"
+  },
+  "visible_expectations": [
+    {
+      "tool_name": "get_incident",
+      "arguments_include": {
+        "incident_id": "72d28add-c146-50d2-b23e-b59cc8250373",
+        "expected_state_version": 5
+      },
+      "minimum_count": 1,
+      "maximum_count": 1
+    },
+    {
+      "tool_name": "get_incident_timeline",
+      "arguments_include": {
+        "incident_id": "72d28add-c146-50d2-b23e-b59cc8250373",
+        "expected_state_version": 5
+      },
+      "minimum_count": 1,
+      "maximum_count": 1
+    }
+  ]
+}

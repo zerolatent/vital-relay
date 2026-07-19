@@ -1,0 +1,7 @@
+{
+  "partition": "final_test",
+  "visibility": "limited_cadence",
+  "candidate_visible_scenario_ids": [],
+  "final_test_cadence_limit": 1,
+  "descriptor_sha256": "9d5e7b25d6cce66a99317489f9374efad076bec5015a0c9dd3a6571c3453c016"
+}

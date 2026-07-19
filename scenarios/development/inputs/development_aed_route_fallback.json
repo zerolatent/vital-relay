@@ -1,0 +1,37 @@
+{
+  "scenario_id": "development_aed_route_fallback",
+  "partition": "development",
+  "family": "routing_fallback",
+  "seed": 5103,
+  "incident": {
+    "schema_version": 1,
+    "incident_id": "659847f7-d1b0-5d75-8579-7a098f4d48d7",
+    "kind": "fall",
+    "state": "response_active",
+    "state_version": 5,
+    "opened_at": "2026-07-18T20:00:00Z",
+    "responder_search_active": false,
+    "accepted_responder_present": true,
+    "fixed_protocol_available": true
+  },
+  "public_inputs": {
+    "paired_seed": 5103,
+    "synthetic": true,
+    "source_label": "DETERMINISTIC REPLAY",
+    "accepted_responder_present": true,
+    "nearest_aed_available": true,
+    "route_provider": "static",
+    "route_fallback_label": "STATIC AED ROUTE"
+  },
+  "visible_expectations": [
+    {
+      "tool_name": "get_dispatch_coordination",
+      "arguments_include": {
+        "incident_id": "659847f7-d1b0-5d75-8579-7a098f4d48d7",
+        "expected_state_version": 5
+      },
+      "minimum_count": 1,
+      "maximum_count": 1
+    }
+  ]
+}

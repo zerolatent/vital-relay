@@ -1,0 +1,26 @@
+{
+  "scenario_id": "development_model_unavailable",
+  "partition": "development",
+  "family": "model_unavailable",
+  "seed": 5104,
+  "incident": {
+    "schema_version": 1,
+    "incident_id": "839d1d32-00ca-5992-b0a3-8a8de3f075b0",
+    "kind": "fall",
+    "state": "escalating",
+    "state_version": 3,
+    "opened_at": "2026-07-18T20:00:00Z",
+    "responder_search_active": true,
+    "accepted_responder_present": false,
+    "fixed_protocol_available": false
+  },
+  "public_inputs": {
+    "paired_seed": 5104,
+    "synthetic": true,
+    "source_label": "DETERMINISTIC REPLAY",
+    "model_provider": "unavailable",
+    "safe_outcome": "manual_required",
+    "fallback_label": "MODEL MANUAL REQUIRED"
+  },
+  "visible_expectations": []
+}

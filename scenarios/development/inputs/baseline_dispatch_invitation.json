@@ -1,0 +1,54 @@
+{
+  "scenario_id": "baseline_dispatch_invitation",
+  "partition": "development",
+  "family": "dispatch_invitation",
+  "seed": 4132,
+  "incident": {
+    "schema_version": 1,
+    "incident_id": "22222222-2222-4222-8222-222222222222",
+    "kind": "fall",
+    "state": "escalating",
+    "state_version": 3,
+    "opened_at": "2026-07-18T20:00:00Z",
+    "responder_search_active": true,
+    "accepted_responder_present": false,
+    "fixed_protocol_available": false
+  },
+  "public_inputs": {
+    "paired_seed": 4132,
+    "synthetic": true,
+    "source_label": "DETERMINISTIC REPLAY",
+    "incident_origin": "fall",
+    "candidate_count": 1,
+    "aed_route": "preferred_available"
+  },
+  "visible_expectations": [
+    {
+      "tool_name": "get_incident",
+      "arguments_include": {
+        "incident_id": "22222222-2222-4222-8222-222222222222",
+        "expected_state_version": 3
+      },
+      "minimum_count": 1,
+      "maximum_count": 1
+    },
+    {
+      "tool_name": "get_dispatch_coordination",
+      "arguments_include": {
+        "incident_id": "22222222-2222-4222-8222-222222222222",
+        "expected_state_version": 3
+      },
+      "minimum_count": 1,
+      "maximum_count": 1
+    },
+    {
+      "tool_name": "coordinate_dispatch",
+      "arguments_include": {
+        "incident_id": "22222222-2222-4222-8222-222222222222",
+        "expected_state_version": 3
+      },
+      "minimum_count": 1,
+      "maximum_count": 1
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "partition": "protected_validation",
+  "visibility": "inputs_only",
+  "candidate_visible_scenario_ids": [
+    "holdout_01",
+    "holdout_02",
+    "holdout_03",
+    "holdout_04",
+    "holdout_05",
+    "holdout_06"
+  ],
+  "descriptor_sha256": "c1e13e358c5d8d1bb4d2bd24db5555e545caecb69e1459ee72cf9a78844ba207"
+}

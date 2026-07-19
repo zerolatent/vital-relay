@@ -1,0 +1,19 @@
+{
+  "scenario_id": "holdout_05",
+  "partition": "protected_validation",
+  "incident": {
+    "schema_version": 1,
+    "incident_id": "2c59e8d3-a417-4f60-91b6-84e03d725ac5",
+    "kind": "fall",
+    "state": "escalating",
+    "state_version": 3,
+    "opened_at": "2026-07-18T19:43:00Z",
+    "responder_search_active": true,
+    "accepted_responder_present": false,
+    "fixed_protocol_available": false
+  },
+  "public_inputs": {
+    "input_mode": "deterministic_replay",
+    "observation_scope": "initial_condition_only"
+  }
+}

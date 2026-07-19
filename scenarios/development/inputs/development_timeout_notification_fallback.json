@@ -1,0 +1,54 @@
+{
+  "scenario_id": "development_timeout_notification_fallback",
+  "partition": "development",
+  "family": "timeout_escalation",
+  "seed": 5101,
+  "incident": {
+    "schema_version": 1,
+    "incident_id": "98e99189-43e5-598c-8030-664ad96d02cc",
+    "kind": "fall",
+    "state": "escalating",
+    "state_version": 3,
+    "opened_at": "2026-07-18T20:00:00Z",
+    "responder_search_active": true,
+    "accepted_responder_present": false,
+    "fixed_protocol_available": false
+  },
+  "public_inputs": {
+    "paired_seed": 5101,
+    "synthetic": true,
+    "source_label": "DETERMINISTIC REPLAY",
+    "incident_origin": "verification_timeout",
+    "notification_provider": "unavailable",
+    "notification_fallback_label": "IN-APP FALLBACK"
+  },
+  "visible_expectations": [
+    {
+      "tool_name": "get_incident",
+      "arguments_include": {
+        "incident_id": "98e99189-43e5-598c-8030-664ad96d02cc",
+        "expected_state_version": 3
+      },
+      "minimum_count": 1,
+      "maximum_count": 1
+    },
+    {
+      "tool_name": "get_dispatch_coordination",
+      "arguments_include": {
+        "incident_id": "98e99189-43e5-598c-8030-664ad96d02cc",
+        "expected_state_version": 3
+      },
+      "minimum_count": 1,
+      "maximum_count": 1
+    },
+    {
+      "tool_name": "coordinate_dispatch",
+      "arguments_include": {
+        "incident_id": "98e99189-43e5-598c-8030-664ad96d02cc",
+        "expected_state_version": 3
+      },
+      "minimum_count": 1,
+      "maximum_count": 1
+    }
+  ]
+}

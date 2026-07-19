@@ -1,0 +1,45 @@
+{
+  "scenario_id": "development_protocol_selection",
+  "partition": "development",
+  "family": "protocol_selection",
+  "seed": 5104,
+  "incident": {
+    "schema_version": 1,
+    "incident_id": "acf0e82c-06d9-5d88-b7d2-a5a0adf87caf",
+    "kind": "fall",
+    "state": "response_active",
+    "state_version": 5,
+    "opened_at": "2026-07-18T20:00:00Z",
+    "responder_search_active": false,
+    "accepted_responder_present": true,
+    "fixed_protocol_available": true
+  },
+  "public_inputs": {
+    "paired_seed": 5104,
+    "synthetic": true,
+    "source_label": "DETERMINISTIC REPLAY",
+    "accepted_responder_present": true,
+    "protocol_mode": "immutable_reference",
+    "protocol_version": "1.0.0"
+  },
+  "visible_expectations": [
+    {
+      "tool_name": "get_incident",
+      "arguments_include": {
+        "incident_id": "acf0e82c-06d9-5d88-b7d2-a5a0adf87caf",
+        "expected_state_version": 5
+      },
+      "minimum_count": 1,
+      "maximum_count": 1
+    },
+    {
+      "tool_name": "get_fixed_protocol",
+      "arguments_include": {
+        "incident_id": "acf0e82c-06d9-5d88-b7d2-a5a0adf87caf",
+        "expected_state_version": 5
+      },
+      "minimum_count": 1,
+      "maximum_count": 1
+    }
+  ]
+}
