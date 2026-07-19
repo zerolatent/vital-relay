@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "route_id": "12121212-1212-4212-8212-121212121212",
+  "provider": "static_venue",
+  "travel_mode": "walking",
+  "aed_site_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+  "created_at": "2026-07-18T14:32:30Z",
+  "legs": [
+    {
+      "sequence": 1,
+      "leg_type": "responder_to_aed",
+      "origin": {
+        "latitude": 41.879,
+        "longitude": -87.6289
+      },
+      "destination": {
+        "latitude": 41.87845,
+        "longitude": -87.62955
+      },
+      "instruction": "Walk southwest to the main hall information desk and retrieve the marked AED.",
+      "distance_m": 119.3,
+      "estimated_duration_seconds": 88
+    },
+    {
+      "sequence": 2,
+      "leg_type": "aed_to_wearer",
+      "origin": {
+        "latitude": 41.87845,
+        "longitude": -87.62955
+      },
+      "destination": {
+        "latitude": 41.8781,
+        "longitude": -87.6298
+      },
+      "instruction": "Take the AED west through the main hall to the marked incident point.",
+      "distance_m": 44.2,
+      "estimated_duration_seconds": 38
+    }
+  ],
+  "total_distance_m": 163.5,
+  "estimated_duration_seconds": 126
+}

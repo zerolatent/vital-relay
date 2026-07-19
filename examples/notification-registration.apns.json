@@ -1,0 +1,5 @@
+{
+  "schema_version": 1,
+  "platform": "apns",
+  "device_token": "00112233445566778899aabbccddeeff00112233445566778899aabbccddeeff"
+}

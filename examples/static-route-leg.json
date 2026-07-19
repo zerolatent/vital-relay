@@ -1,0 +1,25 @@
+{
+  "sequence": 2,
+  "leg_type": "aed_to_wearer",
+  "origin": {
+    "latitude": 41.87845,
+    "longitude": -87.62955
+  },
+  "destination": {
+    "latitude": 41.8781,
+    "longitude": -87.6298
+  },
+  "instruction": "Take the AED west through the main hall to the marked incident point.",
+  "distance_m": 44.2,
+  "estimated_duration_seconds": 38,
+  "geometry": [
+    {
+      "latitude": 41.87845,
+      "longitude": -87.62955
+    },
+    {
+      "latitude": 41.8781,
+      "longitude": -87.6298
+    }
+  ]
+}

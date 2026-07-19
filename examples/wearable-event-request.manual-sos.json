@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "event_id": "56565656-5656-4656-8656-565656565656",
+  "user_id": "demo-user-1",
+  "event_type": "manual_sos",
+  "source": "manual_sos",
+  "simulated": false,
+  "observed_at": "2026-07-18T14:32:05Z",
+  "device_id": "demo-iphone-1",
+  "sequence": 43,
+  "location": {
+    "latitude": 41.8781,
+    "longitude": -87.6298,
+    "horizontal_accuracy_m": 6.0,
+    "captured_at": "2026-07-18T14:32:05Z"
+  },
+  "payload": {
+    "activation_method": "iphone_button"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "persona": "command",
+  "incidents": [
+    {
+      "schema_version": 1,
+      "incident_id": "91919191-9191-4191-8191-919191919191",
+      "kind": "fall",
+      "state": "escalating",
+      "state_version": 3,
+      "updated_at": "2026-07-18T15:11:00Z",
+      "invitation_id": null,
+      "invitation_status": null
+    }
+  ],
+  "server_received_at": "2026-07-18T15:12:00Z"
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "incident_id": "66666666-6666-4666-8666-666666666666",
+  "user_id": "demo-user-1",
+  "kind": "fall",
+  "state": "verifying",
+  "trigger_event_id": "55555555-5555-4555-8555-555555555555",
+  "location": {
+    "latitude": 41.8781,
+    "longitude": -87.6298,
+    "horizontal_accuracy_m": 8.0,
+    "captured_at": "2026-07-18T14:32:05Z"
+  },
+  "simulated": false,
+  "health_snapshot_id": "dddddddd-dddd-4ddd-8ddd-dddddddddddd",
+  "opened_at": "2026-07-18T14:32:06Z",
+  "updated_at": "2026-07-18T14:32:06Z",
+  "verification_expires_at": "2026-07-18T14:32:36Z",
+  "resolved_at": null,
+  "state_version": 1
+}

@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "metric_id": "33333333-3333-4333-8333-333333333333",
+  "user_id": "demo-user-1",
+  "metric_type": "oxygen_saturation",
+  "acquisition_class": "recent_context",
+  "value": 97.0,
+  "unit": "%",
+  "observed_at": "2026-07-18T08:09:00Z",
+  "source": "apple_healthkit",
+  "source_kind": "apple_healthkit",
+  "source_name": "Demo Apple Watch",
+  "source_bundle_id": "com.apple.health",
+  "device_model": "Apple Watch",
+  "simulated": false,
+  "quality": null,
+  "used_for_escalation": false
+}

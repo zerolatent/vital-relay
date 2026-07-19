@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "metric_id": "11111111-1111-4111-8111-111111111111",
+  "user_id": "demo-user-1",
+  "metric_type": "heart_rate",
+  "acquisition_class": "live",
+  "value": 108.0,
+  "unit": "count/min",
+  "observed_at": "2026-07-18T14:32:05Z",
+  "source": "apple_live_workout",
+  "source_kind": "apple_live_workout",
+  "source_name": "Demo Apple Watch",
+  "source_bundle_id": "com.example.vitalrelay",
+  "device_model": "Apple Watch",
+  "simulated": false,
+  "quality": "good",
+  "used_for_escalation": false
+}

@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "metric_id": "44444444-4444-4444-8444-444444444444",
+  "user_id": "demo-user-1",
+  "metric_type": "step_count",
+  "acquisition_class": "recent_context",
+  "value": 2450.0,
+  "unit": "count",
+  "observed_at": "2026-07-18T14:30:00Z",
+  "source": "replay_pedometer",
+  "source_kind": "replay",
+  "source_name": "Deterministic demo fixture",
+  "source_bundle_id": null,
+  "device_model": null,
+  "simulated": true,
+  "quality": "good",
+  "used_for_escalation": false
+}

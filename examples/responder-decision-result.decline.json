@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "decision_id": "dddddddd-dddd-4ddd-8ddd-dddddddddddd",
+  "status": "accepted",
+  "decision": "decline",
+  "invitation": {
+    "schema_version": 1,
+    "invitation_id": "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb",
+    "incident_id": "66666666-6666-4666-8666-666666666666",
+    "sequence": 1,
+    "responder": {
+      "schema_version": 1,
+      "responder_id": "11111111-1111-4111-8111-111111111111",
+      "display_name": "Maya R.",
+      "role": "venue_staff",
+      "skills": ["first_aid", "cpr", "aed"],
+      "rank": 1,
+      "distance_band": "within_100_m",
+      "available": true,
+      "location_updated_at": "2026-07-18T14:32:20Z"
+    },
+    "status": "declined",
+    "invited_at": "2026-07-18T14:32:23Z",
+    "responded_at": "2026-07-18T14:32:25Z",
+    "decision_id": "dddddddd-dddd-4ddd-8ddd-dddddddddddd"
+  },
+  "transition": null,
+  "coordination": {
+    "schema_version": 1,
+    "incident_id": "66666666-6666-4666-8666-666666666666",
+    "state": "escalating",
+    "search_radius_m": 2000.0,
+    "search_started_at": "2026-07-18T14:32:22Z",
+    "candidates": [
+      {
+        "schema_version": 1,
+        "responder_id": "11111111-1111-4111-8111-111111111111",
+        "display_name": "Maya R.",
+        "role": "venue_staff",
+        "skills": ["first_aid", "cpr", "aed"],
+        "rank": 1,
+        "distance_band": "within_100_m",
+        "available": true,
+        "location_updated_at": "2026-07-18T14:32:20Z"
+      },
+      {
+        "schema_version": 1,
+        "responder_id": "22222222-2222-4222-8222-222222222222",
+        "display_name": "Jordan K.",
+        "role": "trained_volunteer",
+        "skills": ["first_aid", "aed"],
+        "rank": 2,
+        "distance_band": "100_to_250_m",
+        "available": true,
+        "location_updated_at": "2026-07-18T14:32:18Z"
+      }
+    ],
+    "invitations": [
+      {
+        "schema_version": 1,
+        "invitation_id": "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb",
+        "incident_id": "66666666-6666-4666-8666-666666666666",
+        "sequence": 1,
+        "responder": {
+          "schema_version": 1,
+          "responder_id": "11111111-1111-4111-8111-111111111111",
+          "display_name": "Maya R.",
+          "role": "venue_staff",
+          "skills": ["first_aid", "cpr", "aed"],
+          "rank": 1,
+          "distance_band": "within_100_m",
+          "available": true,
+          "location_updated_at": "2026-07-18T14:32:20Z"
+        },
+        "status": "declined",
+        "invited_at": "2026-07-18T14:32:23Z",
+        "responded_at": "2026-07-18T14:32:25Z",
+        "decision_id": "dddddddd-dddd-4ddd-8ddd-dddddddddddd"
+      },
+      {
+        "schema_version": 1,
+        "invitation_id": "cccccccc-cccc-4ccc-8ccc-cccccccccccc",
+        "incident_id": "66666666-6666-4666-8666-666666666666",
+        "sequence": 2,
+        "responder": {
+          "schema_version": 1,
+          "responder_id": "22222222-2222-4222-8222-222222222222",
+          "display_name": "Jordan K.",
+          "role": "trained_volunteer",
+          "skills": ["first_aid", "aed"],
+          "rank": 2,
+          "distance_band": "100_to_250_m",
+          "available": true,
+          "location_updated_at": "2026-07-18T14:32:18Z"
+        },
+        "status": "pending",
+        "invited_at": "2026-07-18T14:32:26Z",
+        "responded_at": null,
+        "decision_id": null
+      }
+    ],
+    "nearest_aed": {
+      "schema_version": 1,
+      "aed_site_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+      "name": "Main Hall AED",
+      "coordinate": {
+        "latitude": 41.87845,
+        "longitude": -87.62955
+      },
+      "location_description": "Main hall, east wall beside the information desk",
+      "access_instructions": "Enter through the main hall doors; the cabinet is marked AED.",
+      "publicly_accessible": true,
+      "available": true,
+      "availability_confirmed_at": "2026-07-18T13:00:00Z"
+    },
+    "accepted_responder_id": null,
+    "updated_at": "2026-07-18T14:32:26Z",
+    "simulated": false
+  },
+  "accepted_dispatch": null,
+  "server_received_at": "2026-07-18T14:32:26Z"
+}

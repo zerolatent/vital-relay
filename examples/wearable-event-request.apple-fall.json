@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "55555555-5555-4555-8555-555555555555",
+  "user_id": "demo-user-1",
+  "event_type": "fall_detected",
+  "source": "apple_fall",
+  "simulated": false,
+  "observed_at": "2026-07-18T14:32:05Z",
+  "device_id": "demo-watch-1",
+  "sequence": 42,
+  "location": {
+    "latitude": 41.8781,
+    "longitude": -87.6298,
+    "horizontal_accuracy_m": 8.0,
+    "captured_at": "2026-07-18T14:32:05Z"
+  },
+  "payload": {
+    "fall_date": "2026-07-18T14:32:05Z",
+    "fall_detection_available": true,
+    "entitlement_present": true,
+    "authorization_status": "authorized"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "persona": "community",
+  "incidents": [
+    {
+      "schema_version": 1,
+      "incident_id": "61616161-6161-4161-8161-616161616161",
+      "kind": "manual_sos",
+      "state": "verifying",
+      "state_version": 1,
+      "updated_at": "2026-07-18T15:04:00Z",
+      "invitation_id": null,
+      "invitation_status": null
+    }
+  ],
+  "server_received_at": "2026-07-18T15:05:00Z"
+}

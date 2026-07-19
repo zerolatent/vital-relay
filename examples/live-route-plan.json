@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "route_id": "34343434-3434-4434-8434-343434343434",
+  "source": "live_directions",
+  "provider": "mapbox_directions",
+  "fallback_reason": null,
+  "travel_mode": "walking",
+  "aed_site_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+  "created_at": "2026-07-18T14:32:30Z",
+  "legs": [
+    {
+      "sequence": 1,
+      "leg_type": "responder_to_aed",
+      "origin": {
+        "latitude": 41.879,
+        "longitude": -87.6289
+      },
+      "destination": {
+        "latitude": 41.87845,
+        "longitude": -87.62955
+      },
+      "instruction": "Live walking directions to the assigned AED: Walk southwest Then continue to the AED",
+      "distance_m": 119.3,
+      "estimated_duration_seconds": 90,
+      "geometry": [
+        {
+          "latitude": 41.879,
+          "longitude": -87.6289
+        },
+        {
+          "latitude": 41.87872,
+          "longitude": -87.6292
+        },
+        {
+          "latitude": 41.87845,
+          "longitude": -87.62955
+        }
+      ]
+    },
+    {
+      "sequence": 2,
+      "leg_type": "aed_to_wearer",
+      "origin": {
+        "latitude": 41.87845,
+        "longitude": -87.62955
+      },
+      "destination": {
+        "latitude": 41.8781,
+        "longitude": -87.6298
+      },
+      "instruction": "Live walking directions to the incident location: Walk west Then continue to the incident",
+      "distance_m": 44.2,
+      "estimated_duration_seconds": 38,
+      "geometry": [
+        {
+          "latitude": 41.87845,
+          "longitude": -87.62955
+        },
+        {
+          "latitude": 41.87826,
+          "longitude": -87.62968
+        },
+        {
+          "latitude": 41.8781,
+          "longitude": -87.6298
+        }
+      ]
+    }
+  ],
+  "total_distance_m": 163.5,
+  "estimated_duration_seconds": 128
+}

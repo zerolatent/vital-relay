@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "persona": "responder",
+  "incidents": [
+    {
+      "schema_version": 1,
+      "incident_id": "71717171-7171-4171-8171-717171717171",
+      "kind": "fall",
+      "state": "response_active",
+      "state_version": 4,
+      "updated_at": "2026-07-18T15:07:00Z",
+      "invitation_id": "81818181-8181-4181-8181-818181818181",
+      "invitation_status": "accepted"
+    }
+  ],
+  "server_received_at": "2026-07-18T15:08:00Z"
+}

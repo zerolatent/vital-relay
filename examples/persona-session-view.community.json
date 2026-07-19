@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "session_id": "40404040-4040-4040-8040-404040404040",
+  "account": {
+    "schema_version": 1,
+    "account_id": "10101010-1010-4010-8010-101010101010",
+    "display_name": "Alex Morgan",
+    "persona": "community",
+    "user_id": "demo-user-1",
+    "responder_id": null
+  },
+  "installation_id": "50505050-5050-4050-8050-505050505050",
+  "issued_at": "2026-07-18T15:00:00Z",
+  "rotated_at": "2026-07-18T15:00:00Z",
+  "access_expires_at": "2026-07-18T15:15:00Z",
+  "refresh_expires_at": "2026-07-19T15:00:00Z"
+}

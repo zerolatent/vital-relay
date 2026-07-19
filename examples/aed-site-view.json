@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "aed_site_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+  "name": "Main Hall AED",
+  "coordinate": {
+    "latitude": 41.87845,
+    "longitude": -87.62955
+  },
+  "location_description": "Main hall, east wall beside the information desk",
+  "access_instructions": "Enter through the main hall doors; the cabinet is marked AED.",
+  "publicly_accessible": true,
+  "available": true,
+  "availability_confirmed_at": "2026-07-18T13:00:00Z"
+}

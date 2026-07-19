@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "session_id": "40404040-4040-4040-8040-404040404040",
+  "account": {
+    "schema_version": 1,
+    "account_id": "10101010-1010-4010-8010-101010101010",
+    "display_name": "Alex Morgan",
+    "persona": "community",
+    "user_id": "demo-user-1",
+    "responder_id": null
+  },
+  "installation_id": "50505050-5050-4050-8050-505050505050",
+  "access_token": "A1b2C3d4E5f6G7h8I9j0K1l2M3n4O5p6Q7r8S9t0U1v2W3x4Y5z6A7b8C9d0E1f2",
+  "refresh_token": "f2E1d0C9b8A7z6Y5x4W3v2U1t0S9r8Q7p6O5n4M3l2K1j0I9h8G7f6E5d4C3b2A1",
+  "issued_at": "2026-07-18T15:00:00Z",
+  "rotated_at": "2026-07-18T15:00:00Z",
+  "access_expires_at": "2026-07-18T15:15:00Z",
+  "refresh_expires_at": "2026-07-19T15:00:00Z"
+}
