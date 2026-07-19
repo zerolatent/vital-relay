@@ -1,0 +1,36 @@
+{
+  "schema_version": 3,
+  "access": "host_only",
+  "catalog": "wave_1",
+  "paired_seed_sets": {
+    "protected_validation": [
+      6101,
+      6102,
+      6103
+    ],
+    "final_test": [
+      7101,
+      7102
+    ]
+  },
+  "private_manifests": [
+    "protected-manifest.json",
+    "final-manifest.json"
+  ],
+  "private_cases": {
+    "protected_validation": [
+      "protected_dispatch_invitation",
+      "protected_timeout_fallback",
+      "protected_decline_recovery",
+      "protected_stale_exclusion",
+      "protected_no_skill_fallback",
+      "protected_aed_route_fallback"
+    ],
+    "final_test": [
+      "final_dispatch_invitation",
+      "final_timeout_fallback",
+      "final_decline_recovery",
+      "final_protocol_selection"
+    ]
+  }
+}
