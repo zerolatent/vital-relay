@@ -1,0 +1,634 @@
+Metadata-Version: 2.4
+Name: vital-relay
+Version: 0.9.0
+Summary: Agentic emergency-response coordination demo
+Requires-Python: <3.15,>=3.14
+Description-Content-Type: text/markdown
+Requires-Dist: alembic<1.19,>=1.18
+Requires-Dist: fastapi<1.0,>=0.115
+Requires-Dist: GeoAlchemy2<0.21,>=0.20
+Requires-Dist: cryptography<48,>=45
+Requires-Dist: httpx[http2]<1.0,>=0.28
+Requires-Dist: psycopg[binary]<3.4,>=3.3
+Requires-Dist: pydantic<3.0,>=2.10
+Requires-Dist: PyYAML<7.0,>=6.0.2
+Requires-Dist: SQLAlchemy<2.1,>=2.0
+Requires-Dist: uvicorn[standard]<1.0,>=0.34
+Provides-Extra: agent
+Requires-Dist: deepagents<0.7,>=0.6.12; extra == "agent"
+Requires-Dist: langchain-openai<1.4,>=1.3.5; extra == "agent"
+Provides-Extra: dev
+Requires-Dist: jsonschema[format]<5.0,>=4.23; extra == "dev"
+Requires-Dist: pytest<9.0,>=8.3; extra == "dev"
+
+# Vital Relay
+
+Vital Relay is an agentic emergency-response coordination demo built around
+Apple health inputs, an authoritative safety boundary, nearby responder
+coordination, fixed first-aid protocols, sandboxed local agents, and a bounded
+AlphaEvolve-style policy laboratory.
+
+## Current implementation slices
+
+Slices 01 through 11C plus the Wave 2 product foundations are now present:
+
+- **Slice 01:** normalized scalar metric ingestion;
+- **Slice 02:** capability ingestion and immutable health snapshots;
+- **Slice 03:** scoped PostgreSQL persistence and retention;
+- **Slice 04:** authenticated, durable incident ingestion and verification;
+- **Slice 05:** PostGIS responder/AED discovery and durable dispatch;
+- **Slice 06:** fixed, versioned, source-visible first-aid presentation.
+- **Slice 07:** one native app with isolated community, responder, and command
+  feature graphs over the real authenticated APIs.
+- **Slice 08:** allowlisted APNs registration, durable invitation delivery, and
+  an incident-bound native responder handoff.
+- **Slice 09:** idempotent command close/handoff, atomic incident resolution and
+  assignment revocation, plus native responder exact-data teardown.
+- **Slice 10:** durable authenticated persona sessions, secure native
+  enrollment/restore, and role-scoped active-incident discovery.
+- **Slice 11A:** real foreground Core Location acquisition for deliberate
+  authenticated manual SOS.
+- **Slice 11B:** real foreground read-only HealthKit scalar ingestion, honest
+  capabilities, and immutable context snapshots.
+- **Slice 11C:** real `CMFallDetectionManager` callbacks, durable critical-event
+  transfer, bounded background iPhone location, and authenticated fall ingestion.
+- **Apple Watch foundation:** an embedded watchOS target, typed
+  WatchConnectivity envelopes, durable critical-event delivery, coalesced
+  telemetry, and honest readiness without synthetic producers.
+- **Apple Watch live health:** a user-started `HKWorkoutSession` plus bounded
+  pedometer features that start independently, latest-only telemetry, and
+  community-session-only iPhone ingestion. Health data remains
+  non-authoritative context.
+- **ROUTE-01:** real Mapbox-compatible walking directions with bounded parsing,
+  durable source-labelled geometry, and an explicit static venue fallback.
+- **Agent A2:** a pinned coordination policy, short-lived state-bound tool
+  capabilities, five privacy-bounded application tools, and a deny-by-default
+  host proxy contract.
+- **Agent A3/A3.1:** command-authenticated durable runs, leased PostgreSQL
+  control state, real operator-selected NemoClaw or Docker execution,
+  authenticated internal HTTP tools, append-only audits, and durable mutation
+  idempotency. A runtime failure never invokes the other sandbox.
+- **ACE-00:** immutable, content-addressed operational-playbook, delta,
+  provenance, role/model identity, and bounded context-selection contracts plus
+  a reviewed baseline playbook.
+- **ACE Wave 2:** deterministic host merge/storage, redacted offline
+  Reflector/Curator clients, verified complete candidate bundles, and mandatory
+  reviewed Generator context across live, sandbox, recorded, and scenario runs.
+- **WT-60:** an offline AlphaEvolve-style protected evaluation, mutation,
+  signed-evidence, archive, promotion, and inherited-improver foundation.
+- **Evolution scenario catalog:** 12 development, 6 opaque protected, and 4
+  cadence-gated final cases with host-recomputed scoring and signed evidence
+  under the accepted trusted-offline-host boundary.
+
+The native app also includes:
+
+- **iOS UI-01:** OLED-dark Living Relay monitoring, replay labeling, animated
+  particle heart, deterministic safety check, and bounded response intents.
+- **iOS UI-02:** frozen incident Codable parity, authenticated live incident
+  transport, durable exact retries, server-owned expiry, polling, Getting Help,
+  and Resolved scenes.
+- **iOS UI-03:** device-authenticated, privacy-redacted dispatch coordination,
+  independent dispatch polling, and a searching/recorded/accepted relay
+  constellation with public AED context.
+- **Native persona UI:** command state/timeline/coordination/protocol plus a
+  responder-token invitation, accept/decline, accepted-only MapKit route, and
+  fixed protocol in the same app target. Command can now confirm close or
+  external handoff; responder exact data is removed when assignment access ends.
+- **Authenticated access UI:** the normal launch restores or enrolls one
+  community, responder, or command session, discovers only that role's active
+  incidents, and composes a new credential-scoped graph after selection.
+
+Together they provide:
+
+- frozen JSON contracts for `HealthMetric`, `HealthMetricBatch`, and the result;
+- a FastAPI `POST /v1/health/metrics:batch` endpoint;
+- atomic batch validation and immutable metric IDs;
+- idempotent retries and explicit ID-collision responses;
+- interchangeable thread-safe in-memory and durable PostgreSQL repositories;
+- capability states that never infer HealthKit read denial;
+- deterministic live/recent/historical/unavailable display freshness;
+- immutable snapshots and a redacted HTTP read model;
+- exact retry results across process restarts;
+- transactional snapshot capture, explicit demo scopes, and protected retention;
+- database-enforced audit immutability and recursive snapshot safety checks;
+- database-backed readiness plus bounded PostgreSQL connection waits;
+- frozen contracts for real Apple fall callbacks and first-party manual SOS;
+- a deterministic incident state machine with durable check-in deadlines;
+- atomic event, incident, transition, timeline, health-snapshot, and hold writes;
+- idempotent event/check-in receipts and restart-safe timeout processing;
+- indexed PostGIS discovery for fresh, available, first-aid-qualified responders;
+- nearest-active-AED selection and one-at-a-time durable invitations;
+- idempotent authenticated responder decline and acceptance;
+- exact wearer-location release only to the accepted responder;
+- a persisted responder-to-AED-to-wearer route that uses bounded live walking
+  directions when configured and truthfully labels every static fallback;
+- deterministic `IncidentKind`-only selection of two fixed protocol versions;
+- independently pinned raw-content SHA-256 verification at startup, selection,
+  and presentation;
+- an append-only protocol snapshot committed with the accepted assignment;
+- authenticated command and active assigned-responder protocol reads;
+- a responder-authenticated, pre-accept read containing only that responder's
+  coarse invitation and current incident version;
+- a privacy-bounded responder decision receipt that cannot serialize command
+  coordination or another responder profile;
+- native command polling for state/version, dispatch, AED, protocol, and the
+  ordered timeline;
+- native responder accept/decline with durable decision retry, followed by an
+  accepted-only MapKit static route and verbatim fixed protocol;
+- one iOS composition root for community, responder, and command access profiles
+  without mixing persona credentials or accepted-only state;
+- responder-authenticated APNs registration with encrypted-at-rest device tokens
+  and an explicit seeded-responder allowlist;
+- one durable logical notification per invitation, a leased outbox, bounded
+  provider receipts, and no retry after an ambiguous provider outcome;
+- a privacy-minimal APNs alert whose custom payload contains only schema, kind,
+  incident, and invitation identifiers;
+- a device-bound Keychain responder profile and notification/deep-link handoff
+  that reopens the exact invitation without treating the payload as authority;
+- a strict idempotent `close`/`handoff` command whose one PostgreSQL transaction
+  resolves the incident and appends its transition, timeline, exact receipt,
+  and accepted-assignment revocation;
+- retained command incident/timeline/protocol audit with privacy-preserving
+  responder denial after revocation;
+- native command resolution confirmation and native responder revalidation that
+  immediately tears down cached exact location, route, and protocol data;
+- operator-provisioned persona accounts with one-way enrollment-token storage;
+- installation-bound access/refresh sessions with hashed-only server storage,
+  rotation, revocation, and device-only Keychain persistence;
+- privacy-minimal active-incident discovery scoped independently to community
+  ownership, responder invitations/assignments, or the command demo scope;
+- an authenticated-session iPhone launch by default, with fixture and raw-token
+  launch arguments retained only as explicit QA paths;
+- a real embedded Watch app and restart-safe WatchConnectivity transport that
+  keeps critical events separate from latest-only telemetry;
+- visible Watch fall authorization plus live-health Start/Stop controls that own
+  real fall-detection, HealthKit workout, and pedometer producers;
+- a two-phase Apple-fall handoff that persists backend acceptance before Watch
+  acknowledgement and never escalates dismissed or rejected callbacks;
+- a persona-scoped iPhone telemetry consumer that is destroyed on session
+  teardown without touching the fall-critical inbox or retry scheduler;
+- manual SOS mapped directly to server escalation and fall verification kept
+  backend-authoritative;
+- a wearer-safe dispatch client that exposes no accepted route, exact
+  coordinate, ETA, or responder credential;
+- Alembic migrations plus focused unit, contract, API, and real-PostgreSQL
+  verification;
+- model-owned coordination strategy inside state-specific tool grants, with no
+  deterministic coordinator invoked after model or sandbox failure;
+- a durable run created before inference, exact terminal retry without a second
+  model call, and restart recovery fenced by the same lease that bounds tool
+  authority;
+- a fixed-argv one-run sandbox worker that uses LangChain Deep Agents with a
+  tool-capable vLLM endpoint through either the explicitly selected NemoClaw
+  managed route or the content-locked Docker gateway graph;
+- one private capability-authenticated tool POST path with fresh scope, state,
+  policy, schema, audit, and idempotency enforcement;
+- a bounded private tool executor isolated from long-lived API workers, plus an
+  absolute NemoClaw launcher that receives no backend configuration secrets;
+- host-reconciled body-free tool evidence and a reviewed host-rendered terminal
+  summary instead of persisted model prose; and
+- immutable ACE playbook/context contracts that admit only reviewed host
+  templates and safe provenance partitions; and
+- offline candidate evolution that can propose and evaluate policy changes but
+  cannot self-authorize production activation.
+
+Read [Slice 01: Health Metric Ingestion](docs/implementation-slices/01-health-metric-ingestion.md)
+and [Slice 02: Health Capabilities and Snapshots](docs/implementation-slices/02-health-capabilities-snapshots.md),
+then [Slice 03: PostgreSQL Health Persistence](docs/implementation-slices/03-postgres-health-persistence.md)
+and [Slice 04: Real Incident Core](docs/implementation-slices/04-incident-core.md)
+and [Slice 05: PostGIS Dispatch](docs/implementation-slices/05-postgis-dispatch.md)
+and [Slice 06: Fixed Protocol Presentation](docs/implementation-slices/06-fixed-protocol-presentation.md)
+and [Slice 07: Native Persona Live Views](docs/implementation-slices/07-native-persona-live-views.md),
+[Slice 08: Allowlisted Responder Notifications](docs/implementation-slices/08-allowlisted-responder-notifications.md),
+then [Slice 09: Incident Resolution and Assignment Revocation](docs/implementation-slices/09-incident-resolution-assignment-revocation.md)
+and [Slice 10: Authenticated Persona Sessions and Active-Incident Discovery](docs/implementation-slices/10-authenticated-persona-sessions-active-incident-discovery.md)
+for their precise boundaries and handoffs. Read
+[Slice 11A: Live Core Location Manual SOS](docs/implementation-slices/11a-live-core-location-manual-sos.md)
+and [Slice 11B: Real HealthKit Scalar Ingestion](docs/implementation-slices/11b-live-healthkit-ingestion.md)
+for the current native Apple boundary. The agent path is documented in
+[Agent A2: Policy and Tool-Proxy Foundation](docs/implementation-slices/agent-a2-policy-tool-proxy-foundation.md),
+[Agent A3: Live Sandboxed Coordination](docs/implementation-slices/agent-a3-live-sandboxed-coordination.md),
+[Agent A3.1: Operational Docker](docs/implementation-slices/agent-a31-operational-docker.md),
+[ACE-00: Operational Playbook Contracts](docs/implementation-slices/ace-00-contracts.md),
+[WT-60: Evolution Laboratory Foundation](docs/implementation-slices/11-evolution-laboratory-foundation.md),
+and the [Evolution Scenario Catalog](docs/implementation-slices/evolution-scenario-catalog.md).
+Read
+[iOS UI-01: Monitoring and Safety Check](docs/implementation-slices/ios-ui-01-monitoring-safety-check.md)
+for the fixture-driven iPhone foundation and
+[iOS UI-02: Live Incident Client](docs/implementation-slices/ios-ui-02-live-incident-client.md)
+for the authenticated incident boundary, then
+[iOS UI-03: Dispatch Coordination](docs/implementation-slices/ios-ui-03-dispatch-coordination.md)
+for the wearer-safe responder/AED presentation boundary.
+
+Slices 11B and the live Watch path expose visible HealthKit scalar context; no feature
+calculates medical meaning. Health values remain display/audit context only;
+`used_for_escalation` remains `false` in application and database constraints.
+Only an authenticated Apple fall event, first-party manual SOS, explicit check-in,
+authoritative verification timeout, or authenticated invited-responder
+acceptance can drive the implemented transitions.
+The normal iOS launch now restores a real Keychain session or presents secure
+persona enrollment; fixtures and raw-token profiles require explicit QA launch
+arguments. The app now implements the genuine Apple fall callback adapter and
+live Watch health stream in source, but it does not claim that Apple granted the
+fall entitlement or that a signed physical device produced a callback.
+Signed-device HealthKit, Core Location, WatchConnectivity, Keychain, and APNs
+evidence remains an explicit external gate.
+
+## Next milestones
+
+The six Wave 2 code lanes are integrated. The next product work is a real
+same-budget ACE improvement round and promotion/rollback operator experience,
+followed by signed-device and live-infrastructure evidence for Apple,
+WatchConnectivity, APNs, Mapbox, vLLM, Docker, and Restricted NemoClaw.
+
+External evidence remains separate from feature code: Apple entitlement and
+signed-device callbacks; live HealthKit/WatchConnectivity/APNs behavior; a real
+Mapbox request; and live Docker or Restricted NemoClaw runs with model, tool,
+file-denial, egress-denial, crash, lease, and cleanup evidence. None of these
+gates may be replaced with fixtures or synthetic provider claims.
+
+## Run locally
+
+Python 3.14 is the project runtime. This repository has been smoke-tested against
+the locally installed Python 3.14 interpreter; pin to 3.13 only if a later
+dependency proves incompatible.
+
+```bash
+make install
+make test
+make dev
+```
+
+Agent A3 is opt-in. Before enabling its runtime, install the reviewed agent
+dependencies into the same environment:
+
+```bash
+.venv/bin/python -m pip install -e '.[agent]'
+```
+
+Then choose exactly one runtime in [.env.example](.env.example). Common enabled
+settings are the PostgreSQL URL/scope, `VITAL_RELAY_AGENT_SANDBOX`, a 32–64 byte
+unpadded-base64url tool signing key, the exact model ID and immutable revision,
+and the reviewed model artifact SHA-256. The timeout is optional and must remain
+10–300 seconds; policy overrides, when used, must be absolute paths.
+Runtime-specific settings are presence-sensitive:
+
+| Selection | Required | Must be absent |
+|---|---|---|
+| `nemoclaw` | sandbox name, exact TLS tool-proxy URL, exact managed inference URL | Docker vLLM key |
+| `docker` | Docker vLLM API key | NemoClaw sandbox name, general tool-proxy URL, general vLLM URL |
+
+Blank unselected variables still count as present and fail startup. Set
+`VITAL_RELAY_AGENT_ENABLED=true` only after the selected block is complete.
+Startup validates only that runtime and never falls back to the other one.
+
+The Docker gateways use the fixed host aliases `host.docker.internal:8000` for
+Vital Relay tools and `host.docker.internal:8001` for vLLM. Both host services
+must bind an interface reachable from Docker (typically `0.0.0.0`, with the
+host firewall limiting exposure to the local demo). Start the API with:
+
+```bash
+PYTHONPATH=backend/src .venv/bin/python -m uvicorn \
+  vital_relay.main:create_app --factory --host 0.0.0.0 --port 8000
+```
+
+Do not run the committed Compose profile directly. Application startup builds,
+locks, starts, and validates the exact Docker project; shutdown owns its narrow
+cleanup and publishes monotonic evidence. If cleanup is incomplete, retry only
+through the retained `agent_sandbox_cleanup_retry` callable so the same runner,
+project graph, and staged roots remain authoritative. See the
+[Docker operational guide](infrastructure/docker-agent/README.md).
+
+`make test` runs the fast non-database suite. `make test-postgres` additionally
+starts an isolated temporary Postgres.app cluster for the focused persistence,
+incident, PostGIS dispatch, protocol-presentation, and resolution/revocation
+acceptance checks. Testing is intentionally narrow for the hackathon; the real
+product path takes priority over exhaustive coverage.
+
+The final Wave 2 fast backend result is
+`693 passed, 3 skipped, 45 deselected`; the three optional agent-library checks
+require the `agent` extra above. The last focused real PostgreSQL result remains
+`44 passed`.
+
+Run the iPhone app separately:
+
+```bash
+cd apps/apple
+swift test
+open VitalRelay.xcodeproj
+```
+
+Current combined Apple verification reports `151 tests in 31 Swift Testing
+suites` plus `10 XCTest cases` passed. Generic unsigned iOS and watchOS builds
+also pass; signing, entitlement approval, and physical-device behavior remain
+external gates.
+
+Launch the app with no persona or fixture argument. It restores its one
+device-only Keychain session or shows enrollment for a backend URL, persona,
+and operator-issued enrollment code. `VITAL_RELAY_API_BASE_URL` is optional and
+only pre-fills the enrollment URL:
+
+```text
+VITAL_RELAY_API_BASE_URL=http://127.0.0.1:8000
+```
+
+For direct visual QA only, launch with
+`--fixture-dispatch-invited` or `--fixture-response-active`.
+
+The legacy `--live-api`, `--persona-command`, and `--persona-responder` paths
+remain explicit QA seams for earlier slices. They require their old raw-token
+environment values and a backend composed with the equally explicit
+`legacy_persona_auth=True` test/QA option; product mode never accepts those raw
+tokens as session authority. A notification or deep link supplies only an
+incident/invitation locator and must match the active authenticated responder
+session.
+
+The command QA profile uses:
+
+```text
+VITAL_RELAY_API_BASE_URL=http://127.0.0.1:8000
+VITAL_RELAY_DEVICE_TOKEN=<local demo device token>
+VITAL_RELAY_INCIDENT_ID=<active incident UUID>
+VITAL_RELAY_ACCOUNT_NAME=<optional command display name>
+```
+
+The responder QA profile uses:
+
+```text
+VITAL_RELAY_API_BASE_URL=http://127.0.0.1:8000
+VITAL_RELAY_RESPONDER_ID=<seeded responder UUID>
+VITAL_RELAY_RESPONDER_TOKEN=<printed seed/bootstrap token>
+VITAL_RELAY_INCIDENT_ID=<invited incident UUID>
+VITAL_RELAY_ACCOUNT_NAME=<optional responder display name>
+```
+
+The first explicit responder QA launch saves that legacy bounded access profile
+separately from the product session and then requests notification permission.
+A later push or
+`vitalrelay://responder/incidents/{incident_id}/invitations/{invitation_id}`
+handoff supplies only incident and invitation IDs; it never carries or replaces
+the responder credential. A real HTTPS universal link additionally requires
+Associated Domains and a hosted `apple-app-site-association` file.
+
+Cleartext HTTP is accepted only for loopback demo hosts (`localhost`,
+`127.0.0.1`, or `::1`). Every non-loopback live service must use HTTPS so the
+session access token and SOS location are never sent over remote cleartext
+transport.
+
+Live manual SOS uses one bounded foreground Core Location acquisition and fails
+closed without a fresh, accurate fix. For a locally contained venue demo only,
+add `--demo-venue-location` and explicitly provide
+`VITAL_RELAY_DEMO_LATITUDE`, `VITAL_RELAY_DEMO_LONGITUDE`, and
+`VITAL_RELAY_DEMO_ACCURACY_M`. No coordinate is silently defaulted. See the
+[UI-02 implementation note](docs/implementation-slices/ios-ui-02-live-incident-client.md)
+for recovery and storage-namespace settings, and the
+[UI-03 implementation note](docs/implementation-slices/ios-ui-03-dispatch-coordination.md)
+for dispatch polling and privacy details.
+
+## Run with PostgreSQL
+
+Apply the migration and create one explicit retained demo scope:
+
+```bash
+export VITAL_RELAY_DATABASE_URL='postgresql+psycopg://postgres@localhost/vital_relay'
+
+make migrate
+
+.venv/bin/vital-relay-db create-scope \
+  --scope 11111111-1111-4111-8111-111111111111 \
+  --retention-hours 24
+
+.venv/bin/vital-relay-db seed-response-network \
+  --scope 11111111-1111-4111-8111-111111111111 \
+  --confirm 11111111-1111-4111-8111-111111111111
+
+.venv/bin/vital-relay-db create-persona-account \
+  --scope 11111111-1111-4111-8111-111111111111 \
+  --confirm 11111111-1111-4111-8111-111111111111 \
+  --persona community \
+  --display-name 'Demo community member' \
+  --user-id demo-user-1
+
+export VITAL_RELAY_DEMO_SCOPE_ID='11111111-1111-4111-8111-111111111111'
+export VITAL_RELAY_DEVICE_TOKEN='replace-with-a-long-random-demo-device-token'
+make dev
+```
+
+`seed-response-network` persists two responders and two AEDs at explicit Chicago
+Loop demo-venue coordinates. It also provisions their responder persona
+accounts and prints each newly rotated enrollment code once. The explicit
+`create-persona-account` command does the same for a community identity. Save
+those revealed-once outputs for native enrollment; rerunning either operation
+rotates the relevant enrollment code. PostgreSQL stores only SHA-256 hashes.
+
+At startup, the configured `VITAL_RELAY_DEVICE_TOKEN` deterministically
+provisions the command persona and acts as that account's enrollment code. It
+is not accepted as a product API credential. After enrollment, the native app
+uses only its issued access token for reads/writes and its refresh token for
+rotation/revocation.
+
+To enable Slice 08, first generate a stable server-side encryption key:
+
+```bash
+.venv/bin/python -c 'from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())'
+```
+
+Then set `VITAL_RELAY_APNS_ENABLED=true` and provide the APNs team ID, key ID,
+bundle topic, `.p8` key path, `sandbox` or `production` environment, Fernet key,
+and comma-separated responder UUID allowlist shown in [.env.example](.env.example).
+The app refuses partial APNs configuration, APNs without PostgreSQL, an empty
+allowlist, or an invalid environment. Never commit the `.p8` file, encryption
+key, enrollment bootstrap, session token, APNs device token, or legacy QA token.
+
+When `VITAL_RELAY_DATABASE_URL` is absent, the application deliberately uses
+the in-memory adapters. When it is present, PostgreSQL and a valid active scope
+are mandatory; connection or scope failures never trigger a silent fallback.
+In PostgreSQL mode, `/healthz` rechecks the database and scope and returns `503`
+after the scope closes or the store becomes unavailable.
+
+The incident API exists only in PostgreSQL mode. Product mode resolves the
+session access token carried by the existing community/command
+`X-Vital-Relay-Device-Token` header or responder
+`X-Vital-Relay-Responder-Token` header, then rechecks persona, account, scope,
+resource ownership, responder status, and expiry. There is deliberately no
+in-memory or simulated incident substitute.
+
+Persona session and discovery endpoints are:
+
+| Endpoint | Credential | Purpose |
+|---|---|---|
+| `POST /v1/persona-sessions` | enrollment header | Bind one account to this installation and issue access/refresh tokens |
+| `GET /v1/persona-sessions/current` | bearer access token | Revalidate the current account and session |
+| `POST /v1/persona-sessions/{session_id}/rotation` | refresh header | Replace the short-lived access token |
+| `DELETE /v1/persona-sessions/{session_id}` | refresh header | Revoke the session idempotently |
+| `GET /v1/community/incidents/active` | bearer access token | Discover only the community account's active incidents |
+| `GET /v1/responders/me/incidents/active` | bearer access token | Discover only this responder's pending/accepted incidents |
+| `GET /v1/command/incidents/active` | bearer access token | Discover active incidents in the command account's demo scope |
+
+Discovery rows are privacy-minimal locators. Selecting a row never grants
+authority; every selected feature graph performs its own session and resource
+authorization.
+
+Community/command-session dispatch coordination exposes responder role,
+qualifications, rank, location freshness, and a coarse distance band, but never
+the responder's exact point or the wearer's location. Responder decisions and
+accepted-dispatch reads require `X-Vital-Relay-Responder-Token`. Only an active
+responder identity with the token bound to the acceptance can read the exact
+wearer location and route; marking that responder inactive or resolving the
+incident revokes later exact reads with a privacy-preserving `404`.
+
+The iOS community graph calls only the redacted `POST` and `GET` coordination
+endpoints with its session access token. Its relay constellation can show
+searching, invitation pending, and accepted status plus the public AED; it has
+no accepted-dispatch,
+exact-coordinate, route, ETA, or responder-token model.
+
+The current `static_venue` route is persisted at acceptance with two walking
+legs: responder to AED, then AED to wearer. Its distances are PostGIS
+straight-line distances and its duration is a simple walking estimate. It is
+not live routing, indoor navigation, traffic-aware directions, or a live ETA.
+The accepted dispatch is read from its immutable acceptance snapshot, so later
+AED edits do not silently rewrite the assigned coordinate or route.
+
+With `VITAL_RELAY_APNS_ENABLED=true`, invitation creation also commits one
+allowlisted logical APNs notification in the same database transaction. The
+worker reports only bounded states such as provider accepted, permanently
+failed, unavailable, or unknown. Provider acceptance means APNs accepted the
+request; it does not prove display or user receipt. Write/read timeouts and
+expired leases become terminal unknown outcomes rather than unsafe automatic
+retries.
+
+The dispatch sequence is:
+
+| Endpoint | Header | Purpose |
+|---|---|---|
+| `POST /v1/incidents/{incident_id}/dispatch` | community/command access | Rank eligible responders/AEDs and create at most one invitation |
+| `GET /v1/incidents/{incident_id}/dispatch` | community/command access | Read redacted coordination state |
+| `GET /v1/incidents/{incident_id}/responders/{responder_id}/invitation` | responder access | Read only that responder's coarse invitation and current incident version |
+| `POST /v1/incidents/{incident_id}/responders/{responder_id}/response` | responder access | Accept or decline idempotently |
+| `GET /v1/incidents/{incident_id}/responders/{responder_id}/dispatch` | accepted responder access | Read the exact accepted assignment and static route |
+
+The responder notification surface is:
+
+| Endpoint | Header | Purpose |
+|---|---|---|
+| `PUT /v1/responders/{responder_id}/push-registrations/{installation_id}` | responder access | Create or rotate one allowlisted APNs installation without echoing its token |
+| `DELETE /v1/responders/{responder_id}/push-registrations/{installation_id}` | responder access | Revoke the authenticated installation idempotently |
+| `GET /v1/responders/{responder_id}/invitations/{invitation_id}/notification` | responder access | Read the bounded receipt for that responder's invitation |
+
+The command resolution surface is:
+
+| Endpoint | Header | Purpose |
+|---|---|---|
+| `POST /v1/incidents/{incident_id}/resolution` | command access | Idempotently `close` or record an external `handoff` for a `response_active` incident |
+
+The request is exactly `schema_version`, `resolution_id`, and `action`. The
+server owns the timestamp. Acceptance atomically moves the incident from
+`response_active` to `resolved` and appends the transition, timeline entry,
+exact retry receipt, and accepted-assignment revocation. An exact retry returns
+the original accepted snapshot with `already_processed`; conflicting ID reuse
+or a losing resolution returns `409` without a second transition.
+
+Responder acceptance also creates the fixed protocol presentation in the same
+transaction as the assignment. The protocol read surface is:
+
+| Endpoint | Header | Purpose |
+|---|---|---|
+| `GET /v1/incidents/{incident_id}/protocol` | command access | Read the immutable command presentation |
+| `GET /v1/incidents/{incident_id}/responders/{responder_id}/protocol` | active assigned responder access | Read the same presentation through the responder boundary |
+
+After resolution, command-authorized incident, timeline, and protocol
+presentation remain readable for audit. The active-only command dispatch view
+does not invent a resolved coordination projection. The accepted responder can
+still read only its redacted resolved incident projection; its exact dispatch
+and protocol reads return `404`. The native responder graph revalidates before
+committing exact data and immediately removes cached coordinates, route, and
+protocol, then reconciles the redacted incident when revocation or resolution
+is observed.
+
+`fall` maps only to `fall-response` `1.0.0`; `manual_sos` maps only to
+`manual-sos-response` `1.0.0`. Their raw packaged JSON bytes are SHA-256 pinned
+in an append-only ID/version catalog separate from the active kind mapping, then
+reread/validated at startup, selection, and every presentation. Missing,
+modified, unknown, or mismatched content fails closed. Revision 0004 also
+backfills existing accepted assignments from their protected exact version; an
+accepted assignment without a presentation is treated as integrity failure.
+The response includes fixed steps, disclaimer, source titles, and links to the
+American Red Cross, NHS, and American Heart Association references. See the
+[Slice 06 implementation note](docs/implementation-slices/06-fixed-protocol-presentation.md)
+for the exact integrity and source boundary.
+
+Protocol selection receives only the persisted `IncidentKind`; it has no health,
+diagnosis, responder-observation, prompt, or LLM input. The content is fixed
+presentation guidance, not generated advice or clinical interpretation.
+
+Fall verification defaults to 15 seconds and the durable deadline worker polls
+once per second. For a demo, override those positive values with
+`VITAL_RELAY_VERIFICATION_TIMEOUT_SECONDS` and
+`VITAL_RELAY_DEADLINE_POLL_SECONDS`. Responder discovery defaults to a 1,000
+meter radius and locations no older than 120 seconds; override them with
+`VITAL_RELAY_RESPONDER_RADIUS_M` and
+`VITAL_RELAY_RESPONDER_STALE_SECONDS`. See [.env.example](.env.example).
+
+The running backend is version `0.9.0`. A healthy PostgreSQL instance reports
+`{"status":"ok","slice":"persona_sessions"}` from `/healthz`.
+
+Use `vital-relay-db preview-reset`, `reset-scope`, or `purge-expired` with both
+`--scope` and a matching `--confirm` UUID. Held incident snapshots are preserved
+while unheld health context and its idempotency receipts are removed together.
+The database foreign key itself prevents a held snapshot, request, or scope from
+being deleted behind the retention service.
+
+After enrolling the matching community account, place its short-lived issued
+access token in `VITAL_RELAY_ACCESS_TOKEN`. Then submit the frozen metric and
+capability batches and capture a snapshot:
+
+The committed fixtures use readable contract-only device IDs. For a real
+persona session, first make local request copies and replace every top-level and
+nested `device_id` with the exact lowercase session `installation_id`; keep the
+account `user_id` (`demo-user-1` below) unchanged. Do not alter the committed
+fixtures or reuse their immutable entity IDs after submitting different content.
+
+```bash
+curl -X POST http://127.0.0.1:8000/v1/health/metrics:batch \
+  -H 'content-type: application/json' \
+  -H "X-Vital-Relay-Device-Token: $VITAL_RELAY_ACCESS_TOKEN" \
+  --data @/tmp/vital-relay-health-metric-batch.session.json
+
+curl -X POST http://127.0.0.1:8000/v1/health/capabilities:batch \
+  -H 'content-type: application/json' \
+  -H "X-Vital-Relay-Device-Token: $VITAL_RELAY_ACCESS_TOKEN" \
+  --data @/tmp/vital-relay-health-capability-batch.session.json
+
+curl -X POST http://127.0.0.1:8000/v1/health/snapshots \
+  -H 'content-type: application/json' \
+  -H "X-Vital-Relay-Device-Token: $VITAL_RELAY_ACCESS_TOKEN" \
+  --data @contracts/examples/health-snapshot-create-request.json
+```
+
+Repeating the snapshot request returns the original immutable capture with HTTP
+200. Read it later at
+`GET /v1/health/snapshots/dddddddd-dddd-4ddd-8ddd-dddddddddddd`.
+
+Submit a real Apple fall callback using the frozen fixture shape:
+
+```bash
+curl -X POST http://127.0.0.1:8000/v1/wearable/events \
+  -H 'content-type: application/json' \
+  -H "X-Vital-Relay-Device-Token: $VITAL_RELAY_ACCESS_TOKEN" \
+  --data @/tmp/vital-relay-wearable-event.apple-fall.session.json
+```
+
+This backend contract does not itself obtain Apple's entitlement or synthesize a
+fall. The Apple client must receive the real callback and truthfully supply the
+required availability, entitlement, and authorization metadata. Manual SOS uses
+`contracts/examples/wearable-event-request.manual-sos.json` and the same endpoint.
+
+Interactive API documentation is available at `http://127.0.0.1:8000/docs`.
+
+## Planning documents
+
+- [Implementation progress](progress.md)
+- [Final proposal](proposal/proposal-final.md)
+- [Implementation plan](proposal/implementation-plan.md)
+- [Git worktree plan](proposal/worktree-plan.md)

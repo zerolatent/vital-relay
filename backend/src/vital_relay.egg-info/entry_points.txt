@@ -1,0 +1,6 @@
+[console_scripts]
+vital-relay = vital_relay.main:run
+vital-relay-agent-readiness = vital_relay.agent.readiness:main
+vital-relay-agent-smoke = vital_relay.agent.smoke:main
+vital-relay-agent-worker = vital_relay.agent.worker:main
+vital-relay-db = vital_relay.persistence.cli:main
