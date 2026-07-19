@@ -1,0 +1,14 @@
+# This allowlist is part of the reviewed Docker profile and is content-pinned
+# by the host runner. Keep the build context smaller than the repository.
+**
+!backend/
+!backend/src/
+!backend/src/vital_relay/
+!backend/src/vital_relay/*.py
+!backend/src/vital_relay/**/*.py
+!backend/src/vital_relay/**/*.json
+!infrastructure/
+!infrastructure/docker-agent/
+!infrastructure/docker-agent/requirements.lock
+!infrastructure/docker-agent/vllm_gateway.py
+!infrastructure/docker-agent/tool_proxy_gateway.py

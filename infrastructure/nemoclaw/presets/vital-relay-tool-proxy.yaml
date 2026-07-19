@@ -1,0 +1,20 @@
+preset:
+  name: vital-relay-tool-proxy
+  description: >-
+    Add the live Vital Relay authenticated bounded-tool POST route. This is an
+    additive review fragment, not the authoritative effective policy.
+    The complete base policy must separately add the exact staged Python 3.14
+    executable to managed_inference before this worker can call vLLM.
+network_policies:
+  vital_relay_tool_proxy:
+    name: vital_relay_tool_proxy
+    endpoints:
+      - host: vital-relay.internal
+        port: 8443
+        protocol: rest
+        enforcement: enforce
+        rules:
+          - allow: { method: POST, path: "/internal/v1/agent/tools/invoke" }
+    binaries:
+      - { path: /sandbox/vital-relay-runtime/bin/python3.14 }
+      - { path: /sandbox/vital-relay-runtime/bin/vital-relay-agent-worker }

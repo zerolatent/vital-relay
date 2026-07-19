@@ -1,0 +1,105 @@
+services:
+  agent:
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker-agent/Dockerfile
+      target: agent
+    entrypoint:
+      - python
+      - -m
+      - vital_relay.agent.worker
+    user: "65532:65532"
+    depends_on:
+      vllm-gateway:
+        condition: service_healthy
+      tool-proxy-gateway:
+        condition: service_healthy
+    networks:
+      - agent-internal
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,nodev,size=64m
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 96
+    mem_limit: 1g
+    cpus: 1.0
+    ulimits:
+      nofile:
+        soft: 256
+        hard: 256
+    init: true
+    stop_grace_period: 2s
+
+  vllm-gateway:
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker-agent/Dockerfile
+      target: vllm_gateway
+    environment:
+      VLLM_UPSTREAM_HOST: host.docker.internal
+      VLLM_UPSTREAM_PORT: "11434"
+      VLLM_EXPECTED_MODEL: __VITAL_RELAY_MODEL__
+      VLLM_EXPECTED_MODEL_DIGEST: __VITAL_RELAY_MODEL_DIGEST__
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    networks:
+      - agent-internal
+      - host-egress
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,nodev,size=16m
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 64
+    mem_limit: 128m
+    cpus: 0.5
+    init: true
+    healthcheck:
+      test: ["CMD", "python", "/gateway/vllm_gateway.py", "--check-readiness"]
+      interval: 5s
+      timeout: 3s
+      retries: 6
+      start_period: 5s
+
+  tool-proxy-gateway:
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker-agent/Dockerfile
+      target: tool_proxy_gateway
+    environment:
+      TOOL_PROXY_UPSTREAM_SCHEME: http
+      TOOL_PROXY_UPSTREAM_HOST: host.docker.internal
+      TOOL_PROXY_UPSTREAM_PORT: "8000"
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    networks:
+      - agent-internal
+      - host-egress
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,nodev,size=16m
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 64
+    mem_limit: 128m
+    cpus: 0.5
+    init: true
+    healthcheck:
+      test: ["CMD", "python", "/gateway/tool_proxy_gateway.py", "--check-readiness"]
+      interval: 5s
+      timeout: 3s
+      retries: 6
+      start_period: 5s
+
+networks:
+  agent-internal:
+    internal: true
+    attachable: false
+  host-egress: {}
