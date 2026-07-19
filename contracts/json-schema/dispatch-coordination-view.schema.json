@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vital-relay.local/contracts/v1/dispatch-coordination-view.schema.json",
+  "title": "DispatchCoordinationView v1",
+  "description": "Redacted command coordination data. This schema has no wearer-location field.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "incident_id",
+    "state",
+    "search_radius_m",
+    "search_started_at",
+    "candidates",
+    "invitations",
+    "nearest_aed",
+    "accepted_responder_id",
+    "updated_at",
+    "simulated"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "incident_id": { "type": "string", "format": "uuid" },
+    "state": { "enum": ["escalating", "response_active"] },
+    "search_radius_m": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "maximum": 20000
+    },
+    "search_started_at": { "type": "string", "format": "date-time" },
+    "candidates": {
+      "type": "array",
+      "items": {
+        "$ref": "https://vital-relay.local/contracts/v1/responder-candidate-view.schema.json"
+      },
+      "maxItems": 50
+    },
+    "invitations": {
+      "type": "array",
+      "items": {
+        "$ref": "https://vital-relay.local/contracts/v1/responder-invitation-view.schema.json"
+      },
+      "maxItems": 50
+    },
+    "nearest_aed": {
+      "$ref": "https://vital-relay.local/contracts/v1/aed-site-view.schema.json"
+    },
+    "accepted_responder_id": {
+      "anyOf": [
+        { "type": "string", "format": "uuid" },
+        { "type": "null" }
+      ]
+    },
+    "updated_at": { "type": "string", "format": "date-time" },
+    "simulated": { "const": false }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "state": { "const": "escalating" } },
+        "required": ["state"]
+      },
+      "then": {
+        "properties": { "accepted_responder_id": { "type": "null" } }
+      },
+      "else": {
+        "properties": {
+          "accepted_responder_id": { "type": "string", "format": "uuid" }
+        }
+      }
+    }
+  ]
+}

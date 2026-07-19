@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vital-relay.local/contracts/v1/responder-decision-result.schema.json",
+  "title": "ResponderDecisionResult v1",
+  "description": "Stable idempotent result containing redacted coordination for decline or accepted dispatch for accept.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "decision_id",
+    "status",
+    "decision",
+    "invitation",
+    "transition",
+    "coordination",
+    "accepted_dispatch",
+    "server_received_at"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "decision_id": { "type": "string", "format": "uuid" },
+    "status": { "enum": ["accepted", "already_processed"] },
+    "decision": { "enum": ["decline", "accept"] },
+    "invitation": {
+      "$ref": "https://vital-relay.local/contracts/v1/responder-invitation-view.schema.json"
+    },
+    "transition": {
+      "anyOf": [
+        {
+          "$ref": "https://vital-relay.local/contracts/v1/incident-transition.schema.json"
+        },
+        { "type": "null" }
+      ]
+    },
+    "coordination": {
+      "anyOf": [
+        {
+          "$ref": "https://vital-relay.local/contracts/v1/dispatch-coordination-view.schema.json"
+        },
+        { "type": "null" }
+      ]
+    },
+    "accepted_dispatch": {
+      "anyOf": [
+        {
+          "$ref": "https://vital-relay.local/contracts/v1/accepted-dispatch-view.schema.json"
+        },
+        { "type": "null" }
+      ]
+    },
+    "server_received_at": { "type": "string", "format": "date-time" }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "decision": { "const": "decline" } },
+        "required": ["decision"]
+      },
+      "then": {
+        "properties": {
+          "invitation": {
+            "allOf": [
+              {
+                "$ref": "https://vital-relay.local/contracts/v1/responder-invitation-view.schema.json"
+              },
+              { "properties": { "status": { "const": "declined" } } }
+            ]
+          },
+          "transition": { "type": "null" },
+          "coordination": {
+            "$ref": "https://vital-relay.local/contracts/v1/dispatch-coordination-view.schema.json"
+          },
+          "accepted_dispatch": { "type": "null" }
+        }
+      },
+      "else": {
+        "properties": {
+          "invitation": {
+            "allOf": [
+              {
+                "$ref": "https://vital-relay.local/contracts/v1/responder-invitation-view.schema.json"
+              },
+              { "properties": { "status": { "const": "accepted" } } }
+            ]
+          },
+          "transition": {
+            "$ref": "https://vital-relay.local/contracts/v1/incident-transition.schema.json"
+          },
+          "coordination": { "type": "null" },
+          "accepted_dispatch": {
+            "$ref": "https://vital-relay.local/contracts/v1/accepted-dispatch-view.schema.json"
+          }
+        }
+      }
+    }
+  ]
+}

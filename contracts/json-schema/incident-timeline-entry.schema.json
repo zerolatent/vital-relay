@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vital-relay.local/contracts/v1/incident-timeline-entry.schema.json",
+  "title": "IncidentTimelineEntry v1",
+  "description": "One immutable, ordered, presentation-safe incident audit entry.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "timeline_id",
+    "incident_id",
+    "sequence",
+    "event_type",
+    "occurred_at",
+    "state",
+    "transition_id",
+    "source_event_id",
+    "check_in_id",
+    "summary",
+    "simulated"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "timeline_id": { "type": "string", "format": "uuid" },
+    "incident_id": { "type": "string", "format": "uuid" },
+    "sequence": { "type": "integer", "minimum": 1 },
+    "event_type": {
+      "enum": [
+        "wearable_event_received",
+        "incident_opened",
+        "verification_started",
+        "check_in_recorded",
+        "verification_timed_out",
+        "state_transitioned",
+        "responder_search_started",
+        "responder_invited",
+        "responder_declined",
+        "responder_accepted",
+        "dispatch_activated"
+      ]
+    },
+    "occurred_at": { "type": "string", "format": "date-time" },
+    "state": {
+      "enum": [
+        "monitoring",
+        "verifying",
+        "escalating",
+        "response_active",
+        "resolved"
+      ]
+    },
+    "transition_id": {
+      "anyOf": [
+        { "type": "string", "format": "uuid" },
+        { "type": "null" }
+      ]
+    },
+    "source_event_id": {
+      "anyOf": [
+        { "type": "string", "format": "uuid" },
+        { "type": "null" }
+      ]
+    },
+    "check_in_id": {
+      "anyOf": [
+        { "type": "string", "format": "uuid" },
+        { "type": "null" }
+      ]
+    },
+    "summary": { "type": "string", "minLength": 1, "maxLength": 256 },
+    "simulated": { "const": false }
+  }
+}

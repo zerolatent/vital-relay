@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vital-relay.local/contracts/v1/responder-incident-view.schema.json",
+  "title": "ResponderIncidentView v1",
+  "description": "Current incident state plus only the authenticated responder's invitation.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "incident_id",
+    "kind",
+    "state",
+    "state_version",
+    "updated_at",
+    "invitation"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "incident_id": { "type": "string", "format": "uuid" },
+    "kind": { "enum": ["fall", "manual_sos"] },
+    "state": {
+      "enum": ["verifying", "escalating", "response_active", "resolved"]
+    },
+    "state_version": { "type": "integer", "minimum": 1 },
+    "updated_at": { "type": "string", "format": "date-time" },
+    "invitation": {
+      "$ref": "https://vital-relay.local/contracts/v1/responder-invitation-view.schema.json"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vital-relay.local/contracts/v1/responder-decision-request.schema.json",
+  "title": "ResponderDecisionRequest v1",
+  "description": "One idempotent accept or decline decision for a pending invitation.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "decision_id",
+    "invitation_id",
+    "decision",
+    "responded_at"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "decision_id": { "type": "string", "format": "uuid" },
+    "invitation_id": { "type": "string", "format": "uuid" },
+    "decision": { "enum": ["decline", "accept"] },
+    "responded_at": { "type": "string", "format": "date-time" }
+  }
+}

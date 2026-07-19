@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vital-relay.local/contracts/v1/health-metric-batch-result.schema.json",
+  "title": "HealthMetricBatchResult v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "batch_id",
+    "status",
+    "accepted_count",
+    "duplicate_count",
+    "accepted_metric_ids",
+    "duplicate_metric_ids",
+    "server_received_at"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "batch_id": { "type": "string", "format": "uuid" },
+    "status": { "enum": ["accepted", "already_processed"] },
+    "accepted_count": { "type": "integer", "minimum": 0 },
+    "duplicate_count": { "type": "integer", "minimum": 0 },
+    "accepted_metric_ids": {
+      "type": "array",
+      "items": { "type": "string", "format": "uuid" }
+    },
+    "duplicate_metric_ids": {
+      "type": "array",
+      "items": { "type": "string", "format": "uuid" }
+    },
+    "server_received_at": { "type": "string", "format": "date-time" }
+  }
+}

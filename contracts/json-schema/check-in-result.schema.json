@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vital-relay.local/contracts/v1/check-in-result.schema.json",
+  "title": "CheckInResult v1",
+  "description": "The stable state transition produced by a verification response.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "response_id",
+    "status",
+    "incident",
+    "transition",
+    "server_received_at"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "response_id": { "type": "string", "format": "uuid" },
+    "status": { "enum": ["accepted", "already_processed"] },
+    "incident": {
+      "$ref": "https://vital-relay.local/contracts/v1/incident-view.schema.json"
+    },
+    "transition": {
+      "$ref": "https://vital-relay.local/contracts/v1/incident-transition.schema.json"
+    },
+    "server_received_at": { "type": "string", "format": "date-time" }
+  }
+}

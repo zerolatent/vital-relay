@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vital-relay.local/contracts/v1/incident-resolution-request.schema.json",
+  "title": "IncidentResolutionRequest v1",
+  "description": "An idempotent command request to close an active response or record its handoff. The server owns transition time.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "resolution_id",
+    "action"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "resolution_id": { "type": "string", "format": "uuid" },
+    "action": { "enum": ["close", "handoff"] }
+  }
+}

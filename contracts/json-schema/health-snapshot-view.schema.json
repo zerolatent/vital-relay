@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vital-relay.local/contracts/v1/health-snapshot-view.schema.json",
+  "title": "HealthSnapshotView v1",
+  "description": "Redacted health snapshot returned by the local demo API.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "snapshot_id",
+    "user_id",
+    "capture_reason",
+    "captured_at",
+    "items",
+    "used_for_escalation"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "snapshot_id": { "type": "string", "format": "uuid" },
+    "user_id": { "type": "string" },
+    "capture_reason": {
+      "enum": ["monitoring_started", "incident_created", "manual_refresh"]
+    },
+    "captured_at": { "type": "string", "format": "date-time" },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "metric_type",
+          "availability",
+          "freshness",
+          "age_seconds",
+          "value",
+          "unit",
+          "observed_at",
+          "source",
+          "source_kind",
+          "source_name",
+          "capability_checked_at",
+          "simulated",
+          "used_for_escalation"
+        ],
+        "properties": {
+          "metric_type": { "type": "string" },
+          "availability": {
+            "enum": [
+              "unsupported",
+              "not_requested",
+              "requested_no_sample",
+              "available",
+              "error"
+            ]
+          },
+          "freshness": {
+            "enum": ["live", "recent", "historical", "unavailable"]
+          },
+          "age_seconds": {
+            "anyOf": [
+              { "type": "integer", "minimum": 0 },
+              { "type": "null" }
+            ]
+          },
+          "value": {
+            "anyOf": [
+              { "type": "number", "minimum": -1e308, "maximum": 1e308 },
+              { "type": "null" }
+            ]
+          },
+          "unit": { "type": ["string", "null"] },
+          "observed_at": {
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ]
+          },
+          "source": { "type": "string" },
+          "source_kind": {
+            "enum": [
+              "apple_healthkit",
+              "apple_live_workout",
+              "core_motion",
+              "pedometer",
+              "connected_device",
+              "manual",
+              "replay"
+            ]
+          },
+          "source_name": { "type": ["string", "null"] },
+          "capability_checked_at": {
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ]
+          },
+          "simulated": { "type": "boolean" },
+          "used_for_escalation": { "const": false }
+        }
+      }
+    },
+    "used_for_escalation": { "const": false }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vital-relay.local/contracts/v1/persona-session-create-request.schema.json",
+  "title": "PersonaSessionCreateRequest v1",
+  "description": "A device installation asking to exchange an operator-issued enrollment secret for one role-bound session.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "installation_id"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "installation_id": { "type": "string", "format": "uuid" }
+  }
+}

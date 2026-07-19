@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vital-relay.local/contracts/v1/incident-transition.schema.json",
+  "title": "IncidentTransition v1",
+  "description": "One immutable state change authorized by the deterministic transition policy.",
+  "$comment": "The Python domain model validates the exact from-state, trigger, and to-state tuple.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "transition_id",
+    "incident_id",
+    "sequence",
+    "from_state",
+    "to_state",
+    "trigger",
+    "occurred_at",
+    "source_event_id",
+    "check_in_id",
+    "simulated"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "transition_id": { "type": "string", "format": "uuid" },
+    "incident_id": { "type": "string", "format": "uuid" },
+    "sequence": { "type": "integer", "minimum": 1 },
+    "from_state": {
+      "enum": [
+        "monitoring",
+        "verifying",
+        "escalating",
+        "response_active",
+        "resolved"
+      ]
+    },
+    "to_state": {
+      "enum": [
+        "monitoring",
+        "verifying",
+        "escalating",
+        "response_active",
+        "resolved"
+      ]
+    },
+    "trigger": {
+      "enum": [
+        "fall_detected",
+        "manual_sos",
+        "check_in_okay",
+        "check_in_help",
+        "verification_timeout",
+        "responder_accepted",
+        "cancellation",
+        "close",
+        "handoff"
+      ]
+    },
+    "occurred_at": { "type": "string", "format": "date-time" },
+    "source_event_id": {
+      "anyOf": [
+        { "type": "string", "format": "uuid" },
+        { "type": "null" }
+      ]
+    },
+    "check_in_id": {
+      "anyOf": [
+        { "type": "string", "format": "uuid" },
+        { "type": "null" }
+      ]
+    },
+    "simulated": { "const": false }
+  }
+}

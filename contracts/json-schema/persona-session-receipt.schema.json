@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vital-relay.local/contracts/v1/persona-session-receipt.schema.json",
+  "title": "PersonaSessionReceipt v1",
+  "description": "The plaintext credential receipt returned only when one role-bound installation session is created.",
+  "$comment": "Access, refresh, and enrollment secrets are never persisted in plaintext by the server.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "session_id",
+    "account",
+    "installation_id",
+    "access_token",
+    "refresh_token",
+    "issued_at",
+    "rotated_at",
+    "access_expires_at",
+    "refresh_expires_at"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "session_id": { "type": "string", "format": "uuid" },
+    "account": {
+      "$ref": "https://vital-relay.local/contracts/v1/persona-account.schema.json"
+    },
+    "installation_id": { "type": "string", "format": "uuid" },
+    "access_token": {
+      "type": "string",
+      "minLength": 43,
+      "maxLength": 256,
+      "pattern": "^[A-Za-z0-9_-]+$"
+    },
+    "refresh_token": {
+      "type": "string",
+      "minLength": 43,
+      "maxLength": 256,
+      "pattern": "^[A-Za-z0-9_-]+$"
+    },
+    "issued_at": { "type": "string", "format": "date-time" },
+    "rotated_at": { "type": "string", "format": "date-time" },
+    "access_expires_at": { "type": "string", "format": "date-time" },
+    "refresh_expires_at": { "type": "string", "format": "date-time" }
+  }
+}

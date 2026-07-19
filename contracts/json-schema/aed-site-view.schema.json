@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vital-relay.local/contracts/v1/aed-site-view.schema.json",
+  "title": "AEDSiteView v1",
+  "description": "Public data for one available, statically seeded AED site.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "aed_site_id",
+    "name",
+    "coordinate",
+    "location_description",
+    "access_instructions",
+    "publicly_accessible",
+    "available",
+    "availability_confirmed_at"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "aed_site_id": { "type": "string", "format": "uuid" },
+    "name": { "type": "string", "minLength": 1, "maxLength": 160 },
+    "coordinate": {
+      "$ref": "https://vital-relay.local/contracts/v1/coordinate.schema.json"
+    },
+    "location_description": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "access_instructions": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512
+    },
+    "publicly_accessible": { "type": "boolean" },
+    "available": { "const": true },
+    "availability_confirmed_at": {
+      "anyOf": [
+        { "type": "string", "format": "date-time" },
+        { "type": "null" }
+      ]
+    }
+  }
+}

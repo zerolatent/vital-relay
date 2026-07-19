@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vital-relay.local/contracts/v1/persona-session-rotate-request.schema.json",
+  "title": "PersonaSessionRotateRequest v1",
+  "description": "A refresh-authenticated request to replace only the short-lived access token for its bound installation.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "installation_id"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "installation_id": { "type": "string", "format": "uuid" }
+  }
+}

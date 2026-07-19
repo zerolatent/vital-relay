@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vital-relay.local/contracts/v1/incident-resolution-receipt.schema.json",
+  "title": "IncidentResolutionReceipt v1",
+  "description": "The stable server-owned result of closing or handing off one active response.",
+  "$comment": "The domain model additionally requires incident updated/resolved time and transition occurrence time to equal server_received_at, links transition sequence to incident state_version, and links all incident identities.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "resolution_id",
+    "status",
+    "action",
+    "incident",
+    "transition",
+    "server_received_at"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "resolution_id": { "type": "string", "format": "uuid" },
+    "status": { "enum": ["accepted", "already_processed"] },
+    "action": { "enum": ["close", "handoff"] },
+    "incident": {
+      "allOf": [
+        {
+          "$ref": "https://vital-relay.local/contracts/v1/incident-view.schema.json"
+        },
+        {
+          "properties": {
+            "state": { "const": "resolved" }
+          }
+        }
+      ]
+    },
+    "transition": {
+      "allOf": [
+        {
+          "$ref": "https://vital-relay.local/contracts/v1/incident-transition.schema.json"
+        },
+        {
+          "properties": {
+            "from_state": { "const": "response_active" },
+            "to_state": { "const": "resolved" }
+          }
+        }
+      ]
+    },
+    "server_received_at": { "type": "string", "format": "date-time" }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "action": { "const": "close" } },
+        "required": ["action"]
+      },
+      "then": {
+        "properties": {
+          "transition": {
+            "allOf": [
+              {
+                "$ref": "https://vital-relay.local/contracts/v1/incident-transition.schema.json"
+              },
+              {
+                "properties": { "trigger": { "const": "close" } }
+              }
+            ]
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "transition": {
+            "allOf": [
+              {
+                "$ref": "https://vital-relay.local/contracts/v1/incident-transition.schema.json"
+              },
+              {
+                "properties": { "trigger": { "const": "handoff" } }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

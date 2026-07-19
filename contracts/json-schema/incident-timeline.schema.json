@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vital-relay.local/contracts/v1/incident-timeline.schema.json",
+  "title": "IncidentTimeline v1",
+  "description": "The ordered append-only audit entries for one incident.",
+  "type": "array",
+  "items": {
+    "$ref": "https://vital-relay.local/contracts/v1/incident-timeline-entry.schema.json"
+  }
+}

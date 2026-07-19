@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vital-relay.local/contracts/v1/first-aid-protocol-step.schema.json",
+  "additionalProperties": false,
+  "description": "One ordered, concise instruction in a fixed protocol.",
+  "properties": {
+    "sequence": {
+      "maximum": 12,
+      "minimum": 1,
+      "title": "Sequence",
+      "type": "integer"
+    },
+    "title": {
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Title",
+      "type": "string"
+    },
+    "instruction": {
+      "maxLength": 600,
+      "minLength": 1,
+      "title": "Instruction",
+      "type": "string"
+    }
+  },
+  "required": [
+    "sequence",
+    "title",
+    "instruction"
+  ],
+  "title": "FirstAidProtocolStep",
+  "type": "object"
+}

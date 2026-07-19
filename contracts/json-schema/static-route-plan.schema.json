@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vital-relay.local/contracts/v1/static-route-plan.schema.json",
+  "title": "ResponderRoutePlan v1",
+  "description": "A persisted two-leg responder-to-AED-to-wearer walking route. Legacy static v1 payloads may omit ROUTE-01 metadata and geometry.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "route_id",
+    "provider",
+    "travel_mode",
+    "aed_site_id",
+    "created_at",
+    "legs",
+    "total_distance_m",
+    "estimated_duration_seconds"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "route_id": { "type": "string", "format": "uuid" },
+    "source": { "enum": ["live_directions", "static_fallback"] },
+    "provider": { "enum": ["mapbox_directions", "static_venue"] },
+    "fallback_reason": {
+      "anyOf": [
+        {
+          "enum": [
+            "provider_not_configured",
+            "provider_timeout",
+            "provider_unavailable",
+            "provider_invalid_response"
+          ]
+        },
+        { "type": "null" }
+      ]
+    },
+    "travel_mode": { "const": "walking" },
+    "aed_site_id": { "type": "string", "format": "uuid" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "legs": {
+      "type": "array",
+      "items": {
+        "$ref": "https://vital-relay.local/contracts/v1/static-route-leg.schema.json"
+      },
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "total_distance_m": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 200000
+    },
+    "estimated_duration_seconds": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 172800
+    }
+  },
+  "oneOf": [
+    {
+      "description": "Legacy pre-ROUTE-01 static v1 payload.",
+      "properties": {
+        "provider": { "const": "static_venue" }
+      },
+      "not": {
+        "anyOf": [
+          { "required": ["source"] },
+          { "required": ["fallback_reason"] }
+        ]
+      }
+    },
+    {
+      "description": "Explicit ROUTE-01 live directions payload.",
+      "required": ["source", "fallback_reason"],
+      "properties": {
+        "source": { "const": "live_directions" },
+        "provider": { "const": "mapbox_directions" },
+        "fallback_reason": { "type": "null" },
+        "legs": {
+          "items": {
+            "allOf": [
+              {
+                "$ref": "https://vital-relay.local/contracts/v1/static-route-leg.schema.json"
+              },
+              { "required": ["geometry"] }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "description": "Explicit ROUTE-01 static fallback payload.",
+      "required": ["source", "fallback_reason"],
+      "properties": {
+        "source": { "const": "static_fallback" },
+        "provider": { "const": "static_venue" },
+        "fallback_reason": {
+          "enum": [
+            "provider_not_configured",
+            "provider_timeout",
+            "provider_unavailable",
+            "provider_invalid_response"
+          ]
+        },
+        "legs": {
+          "items": {
+            "allOf": [
+              {
+                "$ref": "https://vital-relay.local/contracts/v1/static-route-leg.schema.json"
+              },
+              { "required": ["geometry"] }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

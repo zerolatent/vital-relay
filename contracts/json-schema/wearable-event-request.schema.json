@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vital-relay.local/contracts/v1/wearable-event-request.schema.json",
+  "title": "WearableEventRequest v1",
+  "description": "A real Apple fall or deliberate manual SOS. Receipt time, incident IDs, and health snapshot IDs are server-assigned.",
+  "$comment": "Application validation additionally requires an Apple payload fall_date to equal observed_at.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "event_id",
+    "user_id",
+    "event_type",
+    "source",
+    "simulated",
+    "observed_at",
+    "device_id",
+    "sequence",
+    "location",
+    "payload"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "event_id": { "type": "string", "format": "uuid" },
+    "user_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9._:-]+$"
+    },
+    "event_type": { "enum": ["fall_detected", "manual_sos"] },
+    "source": { "enum": ["apple_fall", "manual_sos"] },
+    "simulated": { "const": false },
+    "observed_at": { "type": "string", "format": "date-time" },
+    "device_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9._:-]+$"
+    },
+    "sequence": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9223372036854775807
+    },
+    "location": {
+      "$ref": "https://vital-relay.local/contracts/v1/geo-location.schema.json"
+    },
+    "payload": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "fall_date",
+            "fall_detection_available",
+            "entitlement_present",
+            "authorization_status"
+          ],
+          "properties": {
+            "fall_date": { "type": "string", "format": "date-time" },
+            "fall_detection_available": { "const": true },
+            "entitlement_present": { "const": true },
+            "authorization_status": { "const": "authorized" }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["activation_method"],
+          "properties": {
+            "activation_method": {
+              "enum": ["watch_button", "iphone_button"]
+            }
+          }
+        }
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "source": { "const": "apple_fall" } },
+        "required": ["source"]
+      },
+      "then": {
+        "properties": {
+          "event_type": { "const": "fall_detected" },
+          "payload": { "required": ["fall_date"] }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "source": { "const": "manual_sos" } },
+        "required": ["source"]
+      },
+      "then": {
+        "properties": {
+          "event_type": { "const": "manual_sos" },
+          "payload": { "required": ["activation_method"] }
+        }
+      }
+    }
+  ]
+}

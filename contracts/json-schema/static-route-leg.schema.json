@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vital-relay.local/contracts/v1/static-route-leg.schema.json",
+  "title": "ResponderRouteLeg v1",
+  "description": "One ordered leg in a persisted live or static-fallback walking route. Geometry is optional only for legacy static v1 payloads.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "sequence",
+    "leg_type",
+    "origin",
+    "destination",
+    "instruction",
+    "distance_m",
+    "estimated_duration_seconds"
+  ],
+  "properties": {
+    "sequence": { "type": "integer", "minimum": 1 },
+    "leg_type": { "enum": ["responder_to_aed", "aed_to_wearer"] },
+    "origin": {
+      "$ref": "https://vital-relay.local/contracts/v1/coordinate.schema.json"
+    },
+    "destination": {
+      "$ref": "https://vital-relay.local/contracts/v1/coordinate.schema.json"
+    },
+    "instruction": { "type": "string", "minLength": 1, "maxLength": 512 },
+    "distance_m": { "type": "number", "minimum": 0, "maximum": 100000 },
+    "estimated_duration_seconds": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 86400
+    },
+    "geometry": {
+      "type": "array",
+      "items": {
+        "$ref": "https://vital-relay.local/contracts/v1/coordinate.schema.json"
+      },
+      "minItems": 2,
+      "maxItems": 20000
+    }
+  }
+}

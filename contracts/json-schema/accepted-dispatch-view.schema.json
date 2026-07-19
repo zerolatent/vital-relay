@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vital-relay.local/contracts/v1/accepted-dispatch-view.schema.json",
+  "title": "AcceptedDispatchView v1",
+  "description": "The bounded exact-location view released only after responder acceptance.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "incident_id",
+    "state",
+    "invitation",
+    "wearer_location",
+    "aed",
+    "route",
+    "activated_at",
+    "simulated"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "incident_id": { "type": "string", "format": "uuid" },
+    "state": { "const": "response_active" },
+    "invitation": {
+      "$ref": "https://vital-relay.local/contracts/v1/responder-invitation-view.schema.json"
+    },
+    "wearer_location": {
+      "$ref": "https://vital-relay.local/contracts/v1/geo-location.schema.json"
+    },
+    "aed": {
+      "$ref": "https://vital-relay.local/contracts/v1/aed-site-view.schema.json"
+    },
+    "route": {
+      "$ref": "https://vital-relay.local/contracts/v1/static-route-plan.schema.json"
+    },
+    "activated_at": { "type": "string", "format": "date-time" },
+    "simulated": { "const": false }
+  }
+}

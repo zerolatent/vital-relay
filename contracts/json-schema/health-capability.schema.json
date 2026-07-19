@@ -1,0 +1,134 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vital-relay.local/contracts/v1/health-capability.schema.json",
+  "title": "HealthCapability v1",
+  "description": "One capability observation. It never claims that an empty HealthKit read proves permission denial.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "capability_id",
+    "user_id",
+    "metric_type",
+    "acquisition_class",
+    "status",
+    "checked_at",
+    "source",
+    "source_kind",
+    "source_name",
+    "source_bundle_id",
+    "device_model",
+    "simulated",
+    "error_code",
+    "used_for_escalation"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "capability_id": { "type": "string", "format": "uuid" },
+    "user_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9._:-]+$"
+    },
+    "metric_type": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[a-z][a-z0-9_]*$",
+      "not": {
+        "enum": [
+          "ecg_voltage",
+          "raw_accelerometer",
+          "raw_gyroscope",
+          "raw_magnetometer"
+        ]
+      }
+    },
+    "acquisition_class": {
+      "enum": ["live", "recent_context", "user_initiated"]
+    },
+    "status": {
+      "enum": [
+        "unsupported",
+        "not_requested",
+        "requested_no_sample",
+        "available",
+        "error"
+      ]
+    },
+    "checked_at": { "type": "string", "format": "date-time" },
+    "source": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[a-z][a-z0-9_]*$"
+    },
+    "source_kind": {
+      "enum": [
+        "apple_healthkit",
+        "apple_live_workout",
+        "core_motion",
+        "pedometer",
+        "connected_device",
+        "manual",
+        "replay"
+      ]
+    },
+    "source_name": {
+      "anyOf": [
+        { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "\\S" },
+        { "type": "null" }
+      ]
+    },
+    "source_bundle_id": {
+      "anyOf": [
+        { "type": "string", "minLength": 1, "maxLength": 255, "pattern": "\\S" },
+        { "type": "null" }
+      ]
+    },
+    "device_model": {
+      "anyOf": [
+        { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "\\S" },
+        { "type": "null" }
+      ]
+    },
+    "simulated": { "type": "boolean" },
+    "error_code": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        { "type": "null" }
+      ]
+    },
+    "used_for_escalation": { "const": false }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "status": { "const": "error" } },
+        "required": ["status"]
+      },
+      "then": { "properties": { "error_code": { "type": "string" } } },
+      "else": { "properties": { "error_code": { "type": "null" } } }
+    },
+    {
+      "if": {
+        "properties": { "source": { "pattern": "^replay_" } },
+        "required": ["source"]
+      },
+      "then": { "properties": { "simulated": { "const": true } } }
+    },
+    {
+      "if": {
+        "properties": { "source_kind": { "const": "replay" } },
+        "required": ["source_kind"]
+      },
+      "then": { "properties": { "simulated": { "const": true } } }
+    }
+  ]
+}

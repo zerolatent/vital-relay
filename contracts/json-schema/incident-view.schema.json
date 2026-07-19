@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vital-relay.local/contracts/v1/incident-view.schema.json",
+  "title": "IncidentView v1",
+  "description": "The current durable state of one real fall or manual-SOS incident.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "incident_id",
+    "user_id",
+    "kind",
+    "state",
+    "trigger_event_id",
+    "location",
+    "simulated",
+    "health_snapshot_id",
+    "opened_at",
+    "updated_at",
+    "verification_expires_at",
+    "resolved_at",
+    "state_version"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "incident_id": { "type": "string", "format": "uuid" },
+    "user_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9._:-]+$"
+    },
+    "kind": { "enum": ["fall", "manual_sos"] },
+    "state": {
+      "enum": ["verifying", "escalating", "response_active", "resolved"]
+    },
+    "trigger_event_id": { "type": "string", "format": "uuid" },
+    "location": {
+      "$ref": "https://vital-relay.local/contracts/v1/geo-location.schema.json"
+    },
+    "simulated": { "const": false },
+    "health_snapshot_id": { "type": "string", "format": "uuid" },
+    "opened_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" },
+    "verification_expires_at": {
+      "anyOf": [
+        { "type": "string", "format": "date-time" },
+        { "type": "null" }
+      ]
+    },
+    "resolved_at": {
+      "anyOf": [
+        { "type": "string", "format": "date-time" },
+        { "type": "null" }
+      ]
+    },
+    "state_version": { "type": "integer", "minimum": 1 }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "kind": { "const": "fall" } },
+        "required": ["kind"]
+      },
+      "then": {
+        "properties": {
+          "verification_expires_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "else": {
+        "properties": { "verification_expires_at": { "type": "null" } }
+      }
+    },
+    {
+      "if": {
+        "properties": { "state": { "const": "resolved" } },
+        "required": ["state"]
+      },
+      "then": {
+        "properties": {
+          "resolved_at": { "type": "string", "format": "date-time" }
+        }
+      },
+      "else": {
+        "properties": { "resolved_at": { "type": "null" } }
+      }
+    }
+  ]
+}

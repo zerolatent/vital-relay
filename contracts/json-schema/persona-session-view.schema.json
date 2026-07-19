@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vital-relay.local/contracts/v1/persona-session-view.schema.json",
+  "title": "PersonaSessionView v1",
+  "description": "Metadata for the authenticated session without either bearer secret.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "session_id",
+    "account",
+    "installation_id",
+    "issued_at",
+    "rotated_at",
+    "access_expires_at",
+    "refresh_expires_at"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "session_id": { "type": "string", "format": "uuid" },
+    "account": {
+      "$ref": "https://vital-relay.local/contracts/v1/persona-account.schema.json"
+    },
+    "installation_id": { "type": "string", "format": "uuid" },
+    "issued_at": { "type": "string", "format": "date-time" },
+    "rotated_at": { "type": "string", "format": "date-time" },
+    "access_expires_at": { "type": "string", "format": "date-time" },
+    "refresh_expires_at": { "type": "string", "format": "date-time" }
+  }
+}

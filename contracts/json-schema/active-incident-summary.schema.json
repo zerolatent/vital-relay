@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vital-relay.local/contracts/v1/active-incident-summary.schema.json",
+  "title": "ActiveIncidentSummary v1",
+  "description": "A privacy-minimal locator for an active incident authorized to the current persona.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "incident_id",
+    "kind",
+    "state",
+    "state_version",
+    "updated_at",
+    "invitation_id",
+    "invitation_status"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "incident_id": { "type": "string", "format": "uuid" },
+    "kind": { "enum": ["fall", "manual_sos"] },
+    "state": { "enum": ["verifying", "escalating", "response_active"] },
+    "state_version": { "type": "integer", "minimum": 1 },
+    "updated_at": { "type": "string", "format": "date-time" },
+    "invitation_id": {
+      "oneOf": [
+        { "type": "string", "format": "uuid" },
+        { "type": "null" }
+      ]
+    },
+    "invitation_status": {
+      "oneOf": [
+        { "enum": ["pending", "accepted"] },
+        { "type": "null" }
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "invitation_status": { "const": "pending" } },
+        "required": ["invitation_status"]
+      },
+      "then": {
+        "properties": {
+          "invitation_id": { "type": "string", "format": "uuid" },
+          "state": { "const": "escalating" }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "invitation_status": { "const": "accepted" } },
+        "required": ["invitation_status"]
+      },
+      "then": {
+        "properties": {
+          "invitation_id": { "type": "string", "format": "uuid" },
+          "state": { "const": "response_active" }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "invitation_status": { "type": "null" } },
+        "required": ["invitation_status"]
+      },
+      "then": {
+        "properties": { "invitation_id": { "type": "null" } }
+      }
+    }
+  ]
+}

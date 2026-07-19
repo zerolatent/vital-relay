@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vital-relay.local/contracts/v1/geo-location.schema.json",
+  "title": "GeoLocation v1",
+  "description": "A finite, timestamped wearer location attached to a real safety event.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "latitude",
+    "longitude",
+    "horizontal_accuracy_m",
+    "captured_at"
+  ],
+  "properties": {
+    "latitude": {
+      "type": "number",
+      "minimum": -90,
+      "maximum": 90
+    },
+    "longitude": {
+      "type": "number",
+      "minimum": -180,
+      "maximum": 180
+    },
+    "horizontal_accuracy_m": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 10000
+    },
+    "captured_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

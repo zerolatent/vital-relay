@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vital-relay.local/contracts/v1/health-capability-batch.schema.json",
+  "title": "HealthCapabilityBatch v1",
+  "$comment": "Application validation also requires unique capability_id and metric_type values and matching user IDs.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "batch_id",
+    "user_id",
+    "device_id",
+    "sent_at",
+    "capabilities"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "batch_id": { "type": "string", "format": "uuid" },
+    "user_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9._:-]+$"
+    },
+    "device_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9._:-]+$"
+    },
+    "sent_at": { "type": "string", "format": "date-time" },
+    "capabilities": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 100,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "https://vital-relay.local/contracts/v1/health-capability.schema.json"
+      }
+    }
+  }
+}

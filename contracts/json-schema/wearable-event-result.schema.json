@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vital-relay.local/contracts/v1/wearable-event-result.schema.json",
+  "title": "WearableEventResult v1",
+  "description": "The stable result of accepting or deduplicating a real safety event.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "event_id",
+    "canonical_event_id",
+    "status",
+    "incident",
+    "server_received_at"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "event_id": { "type": "string", "format": "uuid" },
+    "canonical_event_id": { "type": "string", "format": "uuid" },
+    "status": { "enum": ["accepted", "already_processed"] },
+    "incident": {
+      "$ref": "https://vital-relay.local/contracts/v1/incident-view.schema.json"
+    },
+    "server_received_at": { "type": "string", "format": "date-time" }
+  }
+}

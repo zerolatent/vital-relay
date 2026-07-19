@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vital-relay.local/contracts/v1/notification-receipt.schema.json",
+  "title": "NotificationReceiptView v1",
+  "description": "Privacy-bounded delivery audit for one responder invitation. Provider acceptance is not a device-delivery claim.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "notification_id",
+    "invitation_id",
+    "incident_id",
+    "responder_id",
+    "channel",
+    "template",
+    "status",
+    "attempt_count",
+    "provider_message_id",
+    "last_error_code",
+    "created_at",
+    "updated_at",
+    "finalized_at"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "notification_id": { "type": "string", "format": "uuid" },
+    "invitation_id": { "type": "string", "format": "uuid" },
+    "incident_id": { "type": "string", "format": "uuid" },
+    "responder_id": { "type": "string", "format": "uuid" },
+    "channel": { "const": "apns" },
+    "template": { "const": "responder_invitation_v1" },
+    "status": {
+      "enum": [
+        "pending",
+        "provider_accepted",
+        "permanent_failed",
+        "unavailable",
+        "unknown"
+      ]
+    },
+    "attempt_count": { "type": "integer", "minimum": 0 },
+    "provider_message_id": {
+      "anyOf": [
+        { "type": "string", "format": "uuid" },
+        { "type": "null" }
+      ]
+    },
+    "last_error_code": {
+      "anyOf": [
+        {
+          "enum": [
+            "active_push_registration_unavailable",
+            "bad_apns_topic",
+            "bad_device_token",
+            "device_token_not_for_topic",
+            "device_token_unreadable",
+            "device_token_unregistered",
+            "incident_not_escalating",
+            "invalid_apns_topic",
+            "invalid_device_token",
+            "invitation_not_pending",
+            "missing_apns_topic",
+            "payload_empty",
+            "payload_too_large",
+            "provider_authentication_failed",
+            "provider_delayed_retry",
+            "provider_outcome_unknown",
+            "provider_rate_limited",
+            "provider_rejected",
+            "provider_response_invalid",
+            "provider_unavailable",
+            "responder_not_notification_allowlisted"
+          ]
+        },
+        { "type": "null" }
+      ]
+    },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" },
+    "finalized_at": {
+      "anyOf": [
+        { "type": "string", "format": "date-time" },
+        { "type": "null" }
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "status": { "const": "pending" } },
+        "required": ["status"]
+      },
+      "then": {
+        "properties": {
+          "provider_message_id": { "type": "null" },
+          "last_error_code": { "type": "null" },
+          "finalized_at": { "type": "null" }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "status": { "const": "provider_accepted" } },
+        "required": ["status"]
+      },
+      "then": {
+        "properties": {
+          "attempt_count": { "type": "integer", "minimum": 1 },
+          "provider_message_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "last_error_code": { "type": "null" },
+          "finalized_at": { "type": "string", "format": "date-time" }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": ["permanent_failed", "unavailable", "unknown"]
+          }
+        },
+        "required": ["status"]
+      },
+      "then": {
+        "properties": {
+          "provider_message_id": { "type": "null" },
+          "last_error_code": {
+            "enum": [
+              "active_push_registration_unavailable",
+              "bad_apns_topic",
+              "bad_device_token",
+              "device_token_not_for_topic",
+              "device_token_unreadable",
+              "device_token_unregistered",
+              "incident_not_escalating",
+              "invalid_apns_topic",
+              "invalid_device_token",
+              "invitation_not_pending",
+              "missing_apns_topic",
+              "payload_empty",
+              "payload_too_large",
+              "provider_authentication_failed",
+              "provider_delayed_retry",
+              "provider_outcome_unknown",
+              "provider_rate_limited",
+              "provider_rejected",
+              "provider_response_invalid",
+              "provider_unavailable",
+              "responder_not_notification_allowlisted"
+            ]
+          },
+          "finalized_at": { "type": "string", "format": "date-time" }
+        }
+      }
+    }
+  ]
+}

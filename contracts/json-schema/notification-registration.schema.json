@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vital-relay.local/contracts/v1/notification-registration.schema.json",
+  "title": "ResponderPushRegistrationRequest v1",
+  "description": "Responder-authenticated APNs registration input. APNs environment and topic are server-owned and the device token must never be echoed by a response.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "platform",
+    "device_token"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "platform": { "const": "apns" },
+    "device_token": {
+      "type": "string",
+      "minLength": 32,
+      "maxLength": 512,
+      "pattern": "^(?:[0-9a-f]{2})+$",
+      "description": "Opaque APNs token encoded as normalized lowercase hexadecimal. Its byte length is deliberately not fixed."
+    }
+  }
+}

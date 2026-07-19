@@ -1,0 +1,207 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vital-relay.local/contracts/v1/protocol-presentation-view.schema.json",
+  "$defs": {
+    "FirstAidProtocolSource": {
+      "additionalProperties": false,
+      "description": "One authoritative public source used to review fixed protocol wording.",
+      "properties": {
+        "organization": {
+          "maxLength": 120,
+          "minLength": 1,
+          "title": "Organization",
+          "type": "string"
+        },
+        "title": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "url": {
+          "format": "uri",
+          "maxLength": 2083,
+          "minLength": 1,
+          "title": "Url",
+          "type": "string"
+        }
+      },
+      "required": [
+        "organization",
+        "title",
+        "url"
+      ],
+      "title": "FirstAidProtocolSource",
+      "type": "object"
+    },
+    "FirstAidProtocolStep": {
+      "additionalProperties": false,
+      "description": "One ordered, concise instruction in a fixed protocol.",
+      "properties": {
+        "sequence": {
+          "maximum": 12,
+          "minimum": 1,
+          "title": "Sequence",
+          "type": "integer"
+        },
+        "title": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "instruction": {
+          "maxLength": 600,
+          "minLength": 1,
+          "title": "Instruction",
+          "type": "string"
+        }
+      },
+      "required": [
+        "sequence",
+        "title",
+        "instruction"
+      ],
+      "title": "FirstAidProtocolStep",
+      "type": "object"
+    },
+    "FixedFirstAidProtocol": {
+      "additionalProperties": false,
+      "description": "An immutable, versioned protocol whose exact content is hash-addressed.",
+      "properties": {
+        "schema_version": {
+          "const": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "protocol_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+          "title": "Protocol Id",
+          "type": "string"
+        },
+        "emergency_kind": {
+          "$ref": "#/$defs/IncidentKind"
+        },
+        "version": {
+          "maxLength": 32,
+          "minLength": 5,
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+          "title": "Version",
+          "type": "string"
+        },
+        "title": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "disclaimer": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Disclaimer",
+          "type": "string"
+        },
+        "sources": {
+          "items": {
+            "$ref": "#/$defs/FirstAidProtocolSource"
+          },
+          "maxItems": 4,
+          "minItems": 1,
+          "title": "Sources",
+          "type": "array"
+        },
+        "content_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Content Sha256",
+          "type": "string"
+        },
+        "steps": {
+          "items": {
+            "$ref": "#/$defs/FirstAidProtocolStep"
+          },
+          "maxItems": 12,
+          "minItems": 1,
+          "title": "Steps",
+          "type": "array"
+        }
+      },
+      "required": [
+        "schema_version",
+        "protocol_id",
+        "emergency_kind",
+        "version",
+        "title",
+        "disclaimer",
+        "sources",
+        "content_sha256",
+        "steps"
+      ],
+      "title": "FixedFirstAidProtocol",
+      "type": "object"
+    },
+    "IncidentKind": {
+      "enum": [
+        "fall",
+        "manual_sos"
+      ],
+      "title": "IncidentKind",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "The exact fixed protocol attached to one accepted responder assignment.",
+  "properties": {
+    "schema_version": {
+      "const": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "presentation_id": {
+      "format": "uuid",
+      "title": "Presentation Id",
+      "type": "string"
+    },
+    "assignment_id": {
+      "format": "uuid",
+      "title": "Assignment Id",
+      "type": "string"
+    },
+    "incident_id": {
+      "format": "uuid",
+      "title": "Incident Id",
+      "type": "string"
+    },
+    "responder_id": {
+      "format": "uuid",
+      "title": "Responder Id",
+      "type": "string"
+    },
+    "presented_at": {
+      "format": "date-time",
+      "title": "Presented At",
+      "type": "string"
+    },
+    "protocol": {
+      "$ref": "#/$defs/FixedFirstAidProtocol"
+    },
+    "simulated": {
+      "const": false,
+      "title": "Simulated",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "schema_version",
+    "presentation_id",
+    "assignment_id",
+    "incident_id",
+    "responder_id",
+    "presented_at",
+    "protocol",
+    "simulated"
+  ],
+  "title": "ProtocolPresentationView",
+  "type": "object"
+}

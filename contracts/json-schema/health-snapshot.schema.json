@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vital-relay.local/contracts/v1/health-snapshot.schema.json",
+  "title": "HealthSnapshot v1",
+  "description": "Immutable internal health context. Items are sorted and unique by metric_type in application validation.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "snapshot_id",
+    "user_id",
+    "capture_reason",
+    "captured_at",
+    "items",
+    "used_for_escalation"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "snapshot_id": { "type": "string", "format": "uuid" },
+    "user_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9._:-]+$"
+    },
+    "capture_reason": {
+      "enum": ["monitoring_started", "incident_created", "manual_refresh"]
+    },
+    "captured_at": { "type": "string", "format": "date-time" },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "metric_type",
+          "metric",
+          "capability",
+          "availability",
+          "freshness",
+          "age_seconds",
+          "live_window_seconds",
+          "recent_window_seconds",
+          "used_for_escalation"
+        ],
+        "properties": {
+          "metric_type": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[a-z][a-z0-9_]*$"
+          },
+          "metric": {
+            "anyOf": [
+              { "$ref": "https://vital-relay.local/contracts/v1/health-metric.schema.json" },
+              { "type": "null" }
+            ]
+          },
+          "capability": {
+            "anyOf": [
+              { "$ref": "https://vital-relay.local/contracts/v1/health-capability.schema.json" },
+              { "type": "null" }
+            ]
+          },
+          "availability": {
+            "enum": [
+              "unsupported",
+              "not_requested",
+              "requested_no_sample",
+              "available",
+              "error"
+            ]
+          },
+          "freshness": {
+            "enum": ["live", "recent", "historical", "unavailable"]
+          },
+          "age_seconds": {
+            "anyOf": [
+              { "type": "integer", "minimum": 0 },
+              { "type": "null" }
+            ]
+          },
+          "live_window_seconds": { "type": "integer", "minimum": 0 },
+          "recent_window_seconds": { "type": "integer", "minimum": 0 },
+          "used_for_escalation": { "const": false }
+        }
+      }
+    },
+    "used_for_escalation": { "const": false }
+  }
+}

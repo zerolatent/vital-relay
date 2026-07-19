@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vital-relay.local/contracts/v1/responder-invitation-view.schema.json",
+  "title": "ResponderInvitationView v1",
+  "description": "One durable responder invitation and its terminal decision, if any.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "invitation_id",
+    "incident_id",
+    "sequence",
+    "responder",
+    "status",
+    "invited_at",
+    "responded_at",
+    "decision_id"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "invitation_id": { "type": "string", "format": "uuid" },
+    "incident_id": { "type": "string", "format": "uuid" },
+    "sequence": { "type": "integer", "minimum": 1 },
+    "responder": {
+      "$ref": "https://vital-relay.local/contracts/v1/responder-candidate-view.schema.json"
+    },
+    "status": { "enum": ["pending", "declined", "accepted"] },
+    "invited_at": { "type": "string", "format": "date-time" },
+    "responded_at": {
+      "anyOf": [
+        { "type": "string", "format": "date-time" },
+        { "type": "null" }
+      ]
+    },
+    "decision_id": {
+      "anyOf": [
+        { "type": "string", "format": "uuid" },
+        { "type": "null" }
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "status": { "const": "pending" } },
+        "required": ["status"]
+      },
+      "then": {
+        "properties": {
+          "responded_at": { "type": "null" },
+          "decision_id": { "type": "null" }
+        }
+      },
+      "else": {
+        "properties": {
+          "responded_at": { "type": "string", "format": "date-time" },
+          "decision_id": { "type": "string", "format": "uuid" }
+        }
+      }
+    }
+  ]
+}

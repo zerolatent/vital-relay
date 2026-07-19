@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vital-relay.local/contracts/v1/persona-account.schema.json",
+  "title": "PersonaAccountView v1",
+  "description": "Public metadata for exactly one authenticated Vital Relay persona subject.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "account_id",
+    "display_name",
+    "persona",
+    "user_id",
+    "responder_id"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "account_id": { "type": "string", "format": "uuid" },
+    "display_name": { "type": "string", "minLength": 1, "maxLength": 128 },
+    "persona": { "enum": ["community", "responder", "command"] },
+    "user_id": {
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[A-Za-z0-9._:-]+$"
+        },
+        { "type": "null" }
+      ]
+    },
+    "responder_id": {
+      "oneOf": [
+        { "type": "string", "format": "uuid" },
+        { "type": "null" }
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "persona": { "const": "community" } },
+        "required": ["persona"]
+      },
+      "then": {
+        "properties": {
+          "user_id": { "type": "string" },
+          "responder_id": { "type": "null" }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "persona": { "const": "responder" } },
+        "required": ["persona"]
+      },
+      "then": {
+        "properties": {
+          "user_id": { "type": "null" },
+          "responder_id": { "type": "string", "format": "uuid" }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "persona": { "const": "command" } },
+        "required": ["persona"]
+      },
+      "then": {
+        "properties": {
+          "user_id": { "type": "null" },
+          "responder_id": { "type": "null" }
+        }
+      }
+    }
+  ]
+}

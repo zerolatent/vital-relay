@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vital-relay.local/contracts/v1/persona-session-revocation-receipt.schema.json",
+  "title": "PersonaSessionRevocationReceipt v1",
+  "description": "A stable logout result for one refresh-authenticated session.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "session_id", "status", "revoked_at"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "session_id": { "type": "string", "format": "uuid" },
+    "status": { "enum": ["revoked", "already_revoked"] },
+    "revoked_at": { "type": "string", "format": "date-time" }
+  }
+}

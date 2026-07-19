@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vital-relay.local/contracts/v1/responder-decision-receipt-view.schema.json",
+  "title": "ResponderDecisionReceiptView v1",
+  "description": "Privacy-bounded responder decision receipt with no command coordination field.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "decision_id",
+    "status",
+    "decision",
+    "invitation",
+    "transition",
+    "accepted_dispatch",
+    "server_received_at"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "decision_id": { "type": "string", "format": "uuid" },
+    "status": { "enum": ["accepted", "already_processed"] },
+    "decision": { "enum": ["decline", "accept"] },
+    "invitation": {
+      "$ref": "https://vital-relay.local/contracts/v1/responder-invitation-view.schema.json"
+    },
+    "transition": {
+      "anyOf": [
+        {
+          "$ref": "https://vital-relay.local/contracts/v1/incident-transition.schema.json"
+        },
+        { "type": "null" }
+      ]
+    },
+    "accepted_dispatch": {
+      "anyOf": [
+        {
+          "$ref": "https://vital-relay.local/contracts/v1/accepted-dispatch-view.schema.json"
+        },
+        { "type": "null" }
+      ]
+    },
+    "server_received_at": { "type": "string", "format": "date-time" }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "decision": { "const": "decline" } },
+        "required": ["decision"]
+      },
+      "then": {
+        "properties": {
+          "invitation": {
+            "allOf": [
+              {
+                "$ref": "https://vital-relay.local/contracts/v1/responder-invitation-view.schema.json"
+              },
+              { "properties": { "status": { "const": "declined" } } }
+            ]
+          },
+          "transition": { "type": "null" },
+          "accepted_dispatch": { "type": "null" }
+        }
+      },
+      "else": {
+        "properties": {
+          "invitation": {
+            "allOf": [
+              {
+                "$ref": "https://vital-relay.local/contracts/v1/responder-invitation-view.schema.json"
+              },
+              { "properties": { "status": { "const": "accepted" } } }
+            ]
+          },
+          "transition": {
+            "$ref": "https://vital-relay.local/contracts/v1/incident-transition.schema.json"
+          },
+          "accepted_dispatch": {
+            "$ref": "https://vital-relay.local/contracts/v1/accepted-dispatch-view.schema.json"
+          }
+        }
+      }
+    }
+  ]
+}

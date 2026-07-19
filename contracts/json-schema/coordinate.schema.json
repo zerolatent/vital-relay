@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vital-relay.local/contracts/v1/coordinate.schema.json",
+  "title": "Coordinate v1",
+  "description": "A public or accepted-dispatch latitude/longitude pair.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["latitude", "longitude"],
+  "properties": {
+    "latitude": { "type": "number", "minimum": -90, "maximum": 90 },
+    "longitude": { "type": "number", "minimum": -180, "maximum": 180 }
+  }
+}

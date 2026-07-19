@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vital-relay.local/contracts/v1/responder-candidate-view.schema.json",
+  "title": "ResponderCandidateView v1",
+  "description": "An eligible responder with ranked, coarse proximity and no exact location.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "responder_id",
+    "display_name",
+    "role",
+    "skills",
+    "rank",
+    "distance_band",
+    "available",
+    "location_updated_at"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "responder_id": { "type": "string", "format": "uuid" },
+    "display_name": { "type": "string", "minLength": 1, "maxLength": 128 },
+    "role": {
+      "enum": ["venue_staff", "trained_volunteer", "medical_professional"]
+    },
+    "skills": {
+      "type": "array",
+      "items": { "enum": ["first_aid", "cpr", "aed"] },
+      "minItems": 1,
+      "maxItems": 8,
+      "uniqueItems": true
+    },
+    "rank": { "type": "integer", "minimum": 1 },
+    "distance_band": {
+      "enum": [
+        "within_100_m",
+        "100_to_250_m",
+        "250_to_500_m",
+        "500_to_1000_m",
+        "1000_to_2000_m"
+      ]
+    },
+    "available": { "const": true },
+    "location_updated_at": { "type": "string", "format": "date-time" }
+  }
+}
