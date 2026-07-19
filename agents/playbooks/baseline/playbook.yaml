@@ -1,0 +1,169 @@
+schema_version: 1
+playbook_id: baseline_operational
+version: 1.0.0
+provenance:
+  schema_version: 1
+  source_partition: reviewed_baseline
+  source_artifact_sha256: 359588f22a49d5e38d181cd587f55d27dd1b433e39b056fdcadf1b62063f3779
+  host_failure_packet_sha256: null
+  redacted: false
+  synthetic: false
+  consented: false
+parent_playbook_sha256: null
+review_manifest:
+  schema_version: 1
+  review_id: ace_baseline_v1
+  decision: approved
+  scope: operational_coordination_context_only
+  playbook_id: baseline_operational
+  playbook_version: 1.0.0
+  approved_items:
+    - item_id: avoid_unresolved_repeats
+      reviewable_content_sha256: 21e3a2bf9835e6d47780596e2b2507afac799590569339850f708bb55005d80e
+    - item_id: continue_after_stale_or_declined
+      reviewable_content_sha256: cdde74bce24a1af5d35b2ed2d60eb7d994e02a2816d0713d3deb037ad3f71906
+    - item_id: observe_before_act
+      reviewable_content_sha256: 2109b64f4beda27f808eeb22a0987c027ff2f5c45e965653cbe58593af77e38b
+    - item_id: prefer_smallest_supported_step
+      reviewable_content_sha256: 6bc0098e2a3d032fe73e9d9afc1fbe6dd2f6c2b7fb1277afba133f11dd09caf3
+    - item_id: return_control_when_uncertain
+      reviewable_content_sha256: 8390762bfb7ee4f8de21ec4f8ba60cbed6b93b18285fe9330510109b3b5e65dc
+  reviewable_content_sha256: 051aee47d0d1f0a2520c7033ec2ab6a2fd63fdb0db523cfbcb1134324cb5cd1a
+  manifest_sha256: 359588f22a49d5e38d181cd587f55d27dd1b433e39b056fdcadf1b62063f3779
+items:
+  - schema_version: 1
+    item_id: avoid_unresolved_repeats
+    version: 1
+    tactic:
+      kind: avoid_unresolved_repeat
+      parameters:
+        observation_tool: null
+        action_tool: null
+      title: Avoid unresolved repeats
+      instruction_text: Do not repeat an irreversible action while its preceding outcome remains unresolved.
+    applicability:
+      incident_states: []
+      incident_kinds: []
+      tool_tags: []
+    tags:
+      - idempotent_progress
+    provenance:
+      schema_version: 1
+      source_partition: reviewed_baseline
+      source_artifact_sha256: 359588f22a49d5e38d181cd587f55d27dd1b433e39b056fdcadf1b62063f3779
+      host_failure_packet_sha256: null
+      redacted: false
+      synthetic: false
+      consented: false
+    status: active
+    deprecation_reason_code: null
+    item_sha256: fd3bdab2119eff0b1f84c40a747c5cfe517467439667dc8a8a80266cfab2a885
+  - schema_version: 1
+    item_id: continue_after_stale_or_declined
+    version: 1
+    tactic:
+      kind: continue_after_stale_or_declined
+      parameters:
+        observation_tool: null
+        action_tool: null
+      title: Continue after stale or declined outcomes
+      instruction_text: When a bounded action is declined or stale, reconsider another eligible coordination option.
+    applicability:
+      incident_states: []
+      incident_kinds: []
+      tool_tags: []
+    tags:
+      - recovery
+    provenance:
+      schema_version: 1
+      source_partition: reviewed_baseline
+      source_artifact_sha256: 359588f22a49d5e38d181cd587f55d27dd1b433e39b056fdcadf1b62063f3779
+      host_failure_packet_sha256: null
+      redacted: false
+      synthetic: false
+      consented: false
+    status: active
+    deprecation_reason_code: null
+    item_sha256: 8d200612276850540d2824001d9905c41db7bc80b6f5db5808d65de0cbf5c347
+  - schema_version: 1
+    item_id: observe_before_act
+    version: 1
+    tactic:
+      kind: observe_before_action
+      parameters:
+        observation_tool: null
+        action_tool: null
+      title: Observe before acting
+      instruction_text: Use fresh host-observed outcomes before choosing another bounded coordination step.
+    applicability:
+      incident_states: []
+      incident_kinds: []
+      tool_tags: []
+    tags:
+      - observation
+    provenance:
+      schema_version: 1
+      source_partition: reviewed_baseline
+      source_artifact_sha256: 359588f22a49d5e38d181cd587f55d27dd1b433e39b056fdcadf1b62063f3779
+      host_failure_packet_sha256: null
+      redacted: false
+      synthetic: false
+      consented: false
+    status: active
+    deprecation_reason_code: null
+    item_sha256: 4c7a3feab88eb83b014935f8b76cfee8f65c83d9dd0541ca74de862c8e3e03c2
+  - schema_version: 1
+    item_id: prefer_smallest_supported_step
+    version: 1
+    tactic:
+      kind: prefer_smallest_supported_step
+      parameters:
+        observation_tool: null
+        action_tool: null
+      title: Prefer the smallest supported step
+      instruction_text: Prefer the smallest bounded step that can make observable coordination progress.
+    applicability:
+      incident_states: []
+      incident_kinds: []
+      tool_tags: []
+    tags:
+      - bounded_progress
+    provenance:
+      schema_version: 1
+      source_partition: reviewed_baseline
+      source_artifact_sha256: 359588f22a49d5e38d181cd587f55d27dd1b433e39b056fdcadf1b62063f3779
+      host_failure_packet_sha256: null
+      redacted: false
+      synthetic: false
+      consented: false
+    status: active
+    deprecation_reason_code: null
+    item_sha256: a2cee44b11d55254c0323834cd09e72792fdb63a686e0a24d8a501abd5e5b70e
+  - schema_version: 1
+    item_id: return_control_when_uncertain
+    version: 1
+    tactic:
+      kind: return_control_when_uncertain
+      parameters:
+        observation_tool: null
+        action_tool: null
+      title: Return control when uncertain
+      instruction_text: Return control for human review when current evidence supports no safe bounded step.
+    applicability:
+      incident_states: []
+      incident_kinds: []
+      tool_tags: []
+    tags:
+      - human_review
+    provenance:
+      schema_version: 1
+      source_partition: reviewed_baseline
+      source_artifact_sha256: 359588f22a49d5e38d181cd587f55d27dd1b433e39b056fdcadf1b62063f3779
+      host_failure_packet_sha256: null
+      redacted: false
+      synthetic: false
+      consented: false
+    status: active
+    deprecation_reason_code: null
+    item_sha256: 9201cf65e0d696177418d02b9f3ad2153cefa67c89323f6b1057511ed0926d8e
+playbook_sha256: 24b194959d60e8f3f7afcb69351700f86740df9da4d4ff13536d1a2064cc5326

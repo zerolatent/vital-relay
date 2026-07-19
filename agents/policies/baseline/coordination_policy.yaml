@@ -1,0 +1,35 @@
+schema_version: 1
+policy_id: baseline
+version: 1.0.0
+objective: coordinate_emergency_response
+strategy:
+  mission: bounded_coordination_progress
+  principles:
+    - smallest_bounded_action
+    - authoritative_result_feedback
+    - minimize_sensitive_data
+    - preserve_protected_boundaries
+  human_review_conditions:
+    - no_safe_bounded_tool
+    - tool_denied_failed_or_stale
+    - conflicting_authoritative_observations
+    - operation_outside_capability
+tool_budget:
+  max_total_calls: 8
+  max_mutating_calls: 1
+  tools:
+    - name: get_incident
+      effect: read
+      max_calls: 2
+    - name: get_incident_timeline
+      effect: read
+      max_calls: 2
+    - name: get_dispatch_coordination
+      effect: read
+      max_calls: 2
+    - name: coordinate_dispatch
+      effect: mutate
+      max_calls: 1
+    - name: get_fixed_protocol
+      effect: read
+      max_calls: 1

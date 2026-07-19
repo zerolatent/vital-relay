@@ -1,0 +1,19 @@
+schema_version: 1
+review_id: ace_baseline_v1
+decision: approved
+scope: operational_coordination_context_only
+playbook_id: baseline_operational
+playbook_version: 1.0.0
+approved_items:
+  - item_id: avoid_unresolved_repeats
+    reviewable_content_sha256: 21e3a2bf9835e6d47780596e2b2507afac799590569339850f708bb55005d80e
+  - item_id: continue_after_stale_or_declined
+    reviewable_content_sha256: cdde74bce24a1af5d35b2ed2d60eb7d994e02a2816d0713d3deb037ad3f71906
+  - item_id: observe_before_act
+    reviewable_content_sha256: 2109b64f4beda27f808eeb22a0987c027ff2f5c45e965653cbe58593af77e38b
+  - item_id: prefer_smallest_supported_step
+    reviewable_content_sha256: 6bc0098e2a3d032fe73e9d9afc1fbe6dd2f6c2b7fb1277afba133f11dd09caf3
+  - item_id: return_control_when_uncertain
+    reviewable_content_sha256: 8390762bfb7ee4f8de21ec4f8ba60cbed6b93b18285fe9330510109b3b5e65dc
+reviewable_content_sha256: 051aee47d0d1f0a2520c7033ec2ab6a2fd63fdb0db523cfbcb1134324cb5cd1a
+manifest_sha256: 359588f22a49d5e38d181cd587f55d27dd1b433e39b056fdcadf1b62063f3779

@@ -1,0 +1,17 @@
+schema_version: 1
+improver_id: baseline
+version: 1.0.0
+failure_analysis_codes:
+  - hard_gate_first
+  - cluster_repeated_failures
+  - authoritative_observation_gaps
+  - stale_or_declined_recovery
+  - duplicate_action_risk
+  - tool_error_concentration
+mutation_prompt_codes:
+  - smallest_effective_change
+  - reorder_existing_strategy
+  - tune_bounded_tool_budget
+  - mutate_one_surface
+  - require_hypothesis_binding
+  - preserve_authority_boundaries
