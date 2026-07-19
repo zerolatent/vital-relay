@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "protocol_id": "fall-response",
+  "emergency_kind": "fall",
+  "version": "1.0.0",
+  "title": "Immediate response after a fall",
+  "disclaimer": "Emergency guidance only - not a diagnosis or a substitute for professional care. Call the local emergency number, follow the dispatcher, and provide care only within your training.",
+  "sources": [
+    {
+      "organization": "American Red Cross",
+      "title": "First Aid Steps",
+      "url": "https://www.redcross.org/take-a-class/first-aid/performing-first-aid/first-aid-steps"
+    },
+    {
+      "organization": "American Red Cross",
+      "title": "First Aid for an Unresponsive and Breathing Person",
+      "url": "https://www.redcross.org/take-a-class/resources/learn-first-aid/unresponsive-and-breathing-person"
+    },
+    {
+      "organization": "National Health Service",
+      "title": "Falls",
+      "url": "https://www.nhs.uk/conditions/falls/"
+    },
+    {
+      "organization": "American Heart Association",
+      "title": "Emergency Treatment of Cardiac Arrest",
+      "url": "https://www.heart.org/en/health-topics/cardiac-arrest/emergency-treatment-of-cardiac-arrest"
+    }
+  ],
+  "steps": [
+    {
+      "sequence": 1,
+      "title": "Check the scene",
+      "instruction": "Pause and make sure the area is safe for you, the person, and anyone helping before you approach."
+    },
+    {
+      "sequence": 2,
+      "title": "Check the person",
+      "instruction": "Check responsiveness, normal breathing, and life-threatening bleeding without asking the person to stand."
+    },
+    {
+      "sequence": 3,
+      "title": "Summon emergency help",
+      "instruction": "Call the local emergency number, send someone for an AED, and follow the dispatcher if the person is unresponsive, is not breathing normally, has severe bleeding, may have injured the head, neck, back, or hip, or cannot get up."
+    },
+    {
+      "sequence": 4,
+      "title": "Limit movement",
+      "instruction": "Do not move the person unnecessarily. Move them only for immediate safety, essential breathing care, or when the emergency dispatcher directs you."
+    },
+    {
+      "sequence": 5,
+      "title": "Use CPR and an AED when needed",
+      "instruction": "If the person is unresponsive and not breathing normally, begin CPR and use the AED as soon as available, within your training and following its prompts."
+    },
+    {
+      "sequence": 6,
+      "title": "Monitor and comfort",
+      "instruction": "Stay with the person, keep them as comfortable and warm as conditions allow, and keep checking responsiveness and breathing until professional help takes over."
+    }
+  ]
+}

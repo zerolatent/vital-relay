@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "protocol_id": "manual-sos-response",
+  "emergency_kind": "manual_sos",
+  "version": "1.0.0",
+  "title": "Immediate response to a manual SOS",
+  "disclaimer": "Emergency guidance only - not a diagnosis or a substitute for professional care. Call the local emergency number, follow the dispatcher, and provide care only within your training.",
+  "sources": [
+    {
+      "organization": "American Red Cross",
+      "title": "First Aid Steps",
+      "url": "https://www.redcross.org/take-a-class/first-aid/performing-first-aid/first-aid-steps"
+    },
+    {
+      "organization": "American Red Cross",
+      "title": "First Aid for an Unresponsive and Breathing Person",
+      "url": "https://www.redcross.org/take-a-class/resources/learn-first-aid/unresponsive-and-breathing-person"
+    },
+    {
+      "organization": "American Heart Association",
+      "title": "Emergency Treatment of Cardiac Arrest",
+      "url": "https://www.heart.org/en/health-topics/cardiac-arrest/emergency-treatment-of-cardiac-arrest"
+    }
+  ],
+  "steps": [
+    {
+      "sequence": 1,
+      "title": "Check the scene",
+      "instruction": "Pause and make sure the area is safe for you, the person, and anyone helping before you approach."
+    },
+    {
+      "sequence": 2,
+      "title": "Check the person",
+      "instruction": "Check responsiveness, normal breathing, and life-threatening bleeding, and look for an obvious immediate danger."
+    },
+    {
+      "sequence": 3,
+      "title": "Summon emergency help",
+      "instruction": "Call the local emergency number, send someone for an AED, state that a manual SOS was activated, and follow the dispatcher's instructions."
+    },
+    {
+      "sequence": 4,
+      "title": "Use CPR and an AED when needed",
+      "instruction": "If the person is unresponsive and not breathing normally, begin CPR and use the AED as soon as available, within your training and following its prompts."
+    },
+    {
+      "sequence": 5,
+      "title": "Give trained first aid",
+      "instruction": "If the person is responsive, ask what happened, obtain consent when possible, and provide only the first aid you are trained to give."
+    },
+    {
+      "sequence": 6,
+      "title": "Monitor and hand off",
+      "instruction": "Stay with the person and keep checking responsiveness and breathing until professional help arrives and takes over."
+    }
+  ]
+}
